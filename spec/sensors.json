@@ -1,0 +1,7 @@
+{
+  "temp_sensor":     { "min": -40, "max": 85 },
+  "humidity_sensor": { "min": 0,   "max": 100 },
+  "pressure_sensor": { "min": 300, "max": 1100 },
+  "distance_sensor": { "min": 2,   "max": 400 },
+  "light_sensor":    { "min": 1,   "max": 65535 }
+}
