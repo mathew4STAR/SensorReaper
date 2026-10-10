@@ -68,6 +68,31 @@ public:
                   std::max(left.m_max, right.m_max));
   }
 
+  // Sign-extends a range when its endpoints fit the source integer type.
+  static Interval sext(const Interval &source, unsigned sourceWidth,
+                       unsigned destinationWidth) {
+    if (!source.isKnown() || destinationWidth <= sourceWidth ||
+        !fitsSigned(source, sourceWidth))
+      return unknown();
+    return closed(source.m_min, source.m_max);
+  }
+
+  // Zero-extends a non-negative range; negative source values are ambiguous.
+  static Interval zext(const Interval &source, unsigned sourceWidth,
+                       unsigned destinationWidth) {
+    if (!source.isKnown() || source.m_min < 0 ||
+        destinationWidth <= sourceWidth || !fitsSigned(source, sourceWidth))
+      return unknown();
+    return closed(source.m_min, source.m_max);
+  }
+
+  // Truncates only when every possible value already fits the destination type.
+  static Interval trunc(const Interval &source, unsigned destinationWidth) {
+    if (!source.isKnown() || !fitsSigned(source, destinationWidth))
+      return unknown();
+    return closed(source.m_min, source.m_max);
+  }
+
 private:
   // Initializes a range using the supplied known-state and endpoints.
   Interval(bool known, int64_t min, int64_t max)
@@ -88,6 +113,11 @@ private:
     if (min < typeMin || max > typeMax)
       return unknown();
     return closed(static_cast<int64_t>(min), static_cast<int64_t>(max));
+  }
+
+  // Checks whether every endpoint is representable as a signed bitWidth integer.
+  static bool fitsSigned(const Interval &interval, unsigned bitWidth) {
+    return fromWide(interval.m_min, interval.m_max, bitWidth).isKnown();
   }
 
   bool m_known;

@@ -45,6 +45,67 @@ static std::optional<std::string> getStringLiteral(const Value *argument) {
   return data->getAsCString().str();
 }
 
+// Gets a known interval for a value, treating an untracked value as unknown.
+static Interval getInterval(const Value *value,
+                            const DenseMap<const Value *, Interval> &ranges) {
+  // ConstantInt returns its signed value exactly when its type is at most i64.
+  if (const auto *constant = dyn_cast<ConstantInt>(value)) {
+    if (constant->getBitWidth() <= 64)
+      return Interval::closed(constant->getSExtValue(), constant->getSExtValue());
+    return Interval::unknown();
+  }
+  const auto found = ranges.find(value);
+  return found == ranges.end() ? Interval::unknown() : found->second;
+}
+
+// Computes one instruction's interval from intervals already known for its operands.
+static Interval evaluateInstruction(
+    const Instruction &instruction,
+    const DenseMap<const Value *, Interval> &ranges) {
+  // Handle the arithmetic operations supported by this project.
+  if (const auto *binary = dyn_cast<BinaryOperator>(&instruction)) {
+    if (!binary->getType()->isIntegerTy())
+      return Interval::unknown();
+    const unsigned width = binary->getType()->getIntegerBitWidth();
+    const Interval left = getInterval(binary->getOperand(0), ranges);
+    const Interval right = getInterval(binary->getOperand(1), ranges);
+    switch (binary->getOpcode()) {
+    case Instruction::Add:
+      return Interval::add(left, right, width);
+    case Instruction::Sub:
+      return Interval::sub(left, right, width);
+    case Instruction::Mul:
+      return Interval::mul(left, right, width);
+    default:
+      return Interval::unknown();
+    }
+  }
+
+  // A sign extension preserves signed numeric values in a wider type.
+  if (const auto *cast = dyn_cast<SExtInst>(&instruction))
+    return Interval::sext(getInterval(cast->getOperand(0), ranges),
+                          cast->getSrcTy()->getIntegerBitWidth(),
+                          cast->getDestTy()->getIntegerBitWidth());
+
+  // A zero extension is safe only when the source interval is non-negative.
+  if (const auto *cast = dyn_cast<ZExtInst>(&instruction))
+    return Interval::zext(getInterval(cast->getOperand(0), ranges),
+                          cast->getSrcTy()->getIntegerBitWidth(),
+                          cast->getDestTy()->getIntegerBitWidth());
+
+  // A truncation is safe only if its full input interval fits the smaller type.
+  if (const auto *cast = dyn_cast<TruncInst>(&instruction))
+    return Interval::trunc(getInterval(cast->getOperand(0), ranges),
+                           cast->getDestTy()->getIntegerBitWidth());
+
+  // A select can produce either arm, so join both arm ranges.
+  if (const auto *select = dyn_cast<SelectInst>(&instruction))
+    return Interval::unite(getInterval(select->getTrueValue(), ranges),
+                           getInterval(select->getFalseValue(), ranges));
+
+  return Interval::unknown();
+}
+
 // Defines the function pass that seeds ranges from direct sensor_read calls.
 class SensorRangePass : public PassInfoMixin<SensorRangePass> {
 public:
@@ -57,8 +118,8 @@ public:
       return PreservedAnalyses::all();
     }
 
-    // This map becomes the initial fact set for interval propagation through llvm ir.
-    DenseMap<const Value *, Interval> seededRanges;
+    // This map holds seeded facts and propagated results for this function.
+    DenseMap<const Value *, Interval> ranges;
     for (Instruction &instruction : instructions(function)) {
       const auto *call = dyn_cast<CallInst>(&instruction);
       if (!call || !call->getCalledFunction() ||
@@ -74,7 +135,7 @@ public:
         continue;
 
       // Associate this call result with the interval guaranteed by the spec.
-      seededRanges.insert({call, Interval::closed(limits->min, limits->max)});
+      ranges.insert({call, Interval::closed(limits->min, limits->max)});
       if (SensorRangeVerbose)
         errs() << "sensor-range-elim: seeded " << *sensorName << " as ["
                << limits->min << ", " << limits->max << "] in "
@@ -83,7 +144,18 @@ public:
 
     if (SensorRangeVerbose)
       errs() << "sensor-range-elim: reads seeded in " << function.getName()
-             << ": " << seededRanges.size() << '\n';
+             << ": " << ranges.size() << '\n';
+
+    // This handles straight-line use-def chains; Step 8 adds phi fixed-point loops.
+    for (const Instruction &instruction : instructions(function)) {
+      const Interval result = evaluateInstruction(instruction, ranges);
+      if (!result.isKnown())
+        continue;
+      ranges.insert({&instruction, result});
+      if (SensorRangeVerbose)
+        errs() << "sensor-range-elim: inferred [" << result.min() << ", "
+               << result.max() << "] in " << function.getName() << '\n';
+    }
 
     // No IR changes occur until the later comparison-folding step.
     (void)analysisManager;
