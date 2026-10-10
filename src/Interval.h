@@ -20,6 +20,12 @@ public:
   // Reports whether this interval has proven lower and upper bounds.
   bool isKnown() const { return m_known; }
 
+  // Compares both the known state and endpoints for fixed-point detection.
+  bool equals(const Interval &other) const {
+    return m_known == other.m_known &&
+           (!m_known || (m_min == other.m_min && m_max == other.m_max));
+  }
+
   // Returns the inclusive lower bound; callers must first check isKnown().
   int64_t min() const { return m_min; }
 

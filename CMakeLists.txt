@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.13)
 
 # Build an out-of-tree LLVM pass plugin using C++17.
-project(SensorReaper LANGUAGES CXX)
+project(SensorReaper LANGUAGES C CXX)
 
 # LLVM_DIR should name LLVM's installed CMake package directory.
 find_package(LLVM REQUIRED CONFIG)

@@ -3,3 +3,16 @@ project_data/
 
 # Keep CMake-generated build outputs out of version control.
 build/
+
+# Cmake configuration files with absolute paths
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+compile_commands.json
+
+
+# Remove clangd extension configuration(might change later if I generalize)
+.clangd
+# clang cache
+.cache

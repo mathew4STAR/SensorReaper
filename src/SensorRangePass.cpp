@@ -2,6 +2,7 @@
 #include "SpecLoader.h"
 
 #include "llvm/ADT/DenseMap.h"
+#include "llvm/ADT/PostOrderIterator.h"
 #include "llvm/Support/CommandLine.h"
 #include "llvm/Support/raw_ostream.h"
 #include "llvm/IR/Constants.h"
@@ -62,6 +63,19 @@ static Interval getInterval(const Value *value,
 static Interval evaluateInstruction(
     const Instruction &instruction,
     const DenseMap<const Value *, Interval> &ranges) {
+  // A phi may select any incoming control-flow value, so join all incoming ranges.
+  if (const auto *phi = dyn_cast<PHINode>(&instruction)) {
+    if (!phi->getType()->isIntegerTy() || phi->getNumIncomingValues() == 0)
+      return Interval::unknown();
+    Interval merged = getInterval(phi->getIncomingValue(0), ranges);
+    for (unsigned index = 1; merged.isKnown() &&
+                             index < phi->getNumIncomingValues();
+         ++index)
+      merged = Interval::unite(
+          merged, getInterval(phi->getIncomingValue(index), ranges));
+    return merged;
+  }
+
   // Handle the arithmetic operations supported by this project.
   if (const auto *binary = dyn_cast<BinaryOperator>(&instruction)) {
     if (!binary->getType()->isIntegerTy())
@@ -106,6 +120,68 @@ static Interval evaluateInstruction(
   return Interval::unknown();
 }
 
+// Reports whether evaluation supports this instruction in the current project scope.
+static bool supportsInterval(const Instruction &instruction) {
+  return isa<PHINode>(instruction) || isa<BinaryOperator>(instruction) ||
+         isa<SExtInst>(instruction) || isa<ZExtInst>(instruction) ||
+         isa<TruncInst>(instruction) || isa<SelectInst>(instruction);
+}
+
+// Decides an integer comparison only when both operand intervals prove its result.
+static std::optional<bool> decideComparison(CmpInst::Predicate predicate,
+                                            const Interval &left,
+                                            const Interval &right) {
+  if (!left.isKnown() || !right.isKnown())
+    return std::nullopt;
+
+  const bool disjoint = left.max() < right.min() || right.max() < left.min();
+  const bool sameConstant = left.min() == left.max() &&
+                            right.min() == right.max() &&
+                            left.min() == right.min();
+  switch (predicate) {
+  case CmpInst::ICMP_EQ:
+    return sameConstant ? std::optional<bool>(true)
+                        : (disjoint ? std::optional<bool>(false) : std::nullopt);
+  case CmpInst::ICMP_NE:
+    return sameConstant ? std::optional<bool>(false)
+                        : (disjoint ? std::optional<bool>(true) : std::nullopt);
+  case CmpInst::ICMP_SLT:
+  case CmpInst::ICMP_ULT:
+    return left.max() < right.min() ? std::optional<bool>(true)
+                                     : (left.min() >= right.max()
+                                            ? std::optional<bool>(false)
+                                            : std::nullopt);
+  case CmpInst::ICMP_SLE:
+  case CmpInst::ICMP_ULE:
+    return left.max() <= right.min() ? std::optional<bool>(true)
+                                      : (left.min() > right.max()
+                                             ? std::optional<bool>(false)
+                                             : std::nullopt);
+  case CmpInst::ICMP_SGT:
+  case CmpInst::ICMP_UGT:
+    return left.min() > right.max() ? std::optional<bool>(true)
+                                     : (left.max() <= right.min()
+                                            ? std::optional<bool>(false)
+                                            : std::nullopt);
+  case CmpInst::ICMP_SGE:
+  case CmpInst::ICMP_UGE:
+    return left.min() >= right.max() ? std::optional<bool>(true)
+                                      : (left.max() < right.min()
+                                             ? std::optional<bool>(false)
+                                             : std::nullopt);
+  default:
+    return std::nullopt;
+  }
+}
+
+// Prints a value as an LLVM operand, such as %temperature or -100.
+static std::string valueText(const Value &value) {
+  std::string text;
+  raw_string_ostream stream(text);
+  value.printAsOperand(stream, false);
+  return stream.str();
+}
+
 // Defines the function pass that seeds ranges from direct sensor_read calls.
 class SensorRangePass : public PassInfoMixin<SensorRangePass> {
 public:
@@ -146,20 +222,103 @@ public:
       errs() << "sensor-range-elim: reads seeded in " << function.getName()
              << ": " << ranges.size() << '\n';
 
-    // This handles straight-line use-def chains; Step 8 adds phi fixed-point loops.
-    for (const Instruction &instruction : instructions(function)) {
-      const Interval result = evaluateInstruction(instruction, ranges);
-      if (!result.isKnown())
-        continue;
-      ranges.insert({&instruction, result});
-      if (SensorRangeVerbose)
-        errs() << "sensor-range-elim: inferred [" << result.min() << ", "
-               << result.max() << "] in " << function.getName() << '\n';
+    // Retain sensor facts so non-convergence can safely discard derived results.
+    const DenseMap<const Value *, Interval> seededRanges = ranges;
+    const unsigned readsSeeded = ranges.size();
+    constexpr unsigned MaxIterations = 16;
+    bool converged = false;
+    for (unsigned iteration = 0; iteration < MaxIterations; ++iteration) {
+      bool changed = false;
+      // Reverse post-order visits predecessors before successors when possible.
+      ReversePostOrderTraversal<Function *> rpo(&function);
+      for (const BasicBlock *block : rpo) {
+        for (const Instruction &instruction : *block) {
+          if (!supportsInterval(instruction))
+            continue;
+          const Interval result = evaluateInstruction(instruction, ranges);
+          const auto previous = ranges.find(&instruction);
+          if (!result.isKnown()) {
+            if (previous != ranges.end()) {
+              ranges.erase(&instruction);
+              changed = true;
+            }
+            continue;
+          }
+          if (previous != ranges.end() && previous->second.equals(result))
+            continue;
+          if (previous == ranges.end())
+            ranges.insert({&instruction, result});
+          else
+            previous->second = result;
+          changed = true;
+          if (SensorRangeVerbose)
+            errs() << "sensor-range-elim: inferred [" << result.min() << ", "
+                   << result.max() << "] in " << function.getName() << '\n';
+        }
+      }
+      if (!changed) {
+        converged = true;
+        break;
+      }
     }
 
-    // No IR changes occur until the later comparison-folding step.
+    if (!converged) {
+      // Keep only sensor facts because an unconverged result is not trustworthy.
+      ranges = seededRanges;
+      if (SensorRangeVerbose)
+        errs() << "sensor-range-elim: iteration cap reached in "
+               << function.getName() << "; derived ranges discarded\n";
+    }
+
+    unsigned comparisonsTrue = 0;
+    unsigned comparisonsFalse = 0;
+    bool changedIr = false;
+    if (converged) {
+      for (Instruction &instruction : instructions(function)) {
+        auto *comparison = dyn_cast<ICmpInst>(&instruction);
+        if (!comparison)
+          continue;
+        const Interval left = getInterval(comparison->getOperand(0), ranges);
+        const Interval right = getInterval(comparison->getOperand(1), ranges);
+        if (!left.isKnown() || !right.isKnown())
+          continue;
+        const CmpInst::Predicate predicate = comparison->getPredicate();
+        const bool isUnsigned = predicate == CmpInst::ICMP_ULT ||
+                                predicate == CmpInst::ICMP_ULE ||
+                                predicate == CmpInst::ICMP_UGT ||
+                                predicate == CmpInst::ICMP_UGE;
+        if (isUnsigned && (left.min() < 0 || right.min() < 0))
+          continue;
+        const auto decision = decideComparison(predicate, left, right);
+        if (!decision)
+          continue;
+
+        // Replace all branch users with a constant i1; simplifycfg removes blocks.
+        comparison->replaceAllUsesWith(
+            ConstantInt::get(comparison->getType(), *decision ? 1 : 0));
+        changedIr = true;
+        if (*decision)
+          ++comparisonsTrue;
+        else
+          ++comparisonsFalse;
+        if (SensorRangeVerbose)
+          errs() << "sensor-range-elim: icmp "
+                 << CmpInst::getPredicateName(predicate) << " "
+                 << valueText(*comparison->getOperand(0)) << ", "
+                 << valueText(*comparison->getOperand(1)) << " is always "
+                 << (*decision ? "true" : "false") << ": [" << left.min()
+                 << ", " << left.max() << "] versus [" << right.min() << ", "
+                 << right.max() << "]\n";
+      }
+    }
+    if (SensorRangeVerbose)
+      errs() << "sensor-range-elim: summary for " << function.getName()
+             << ": reads seeded=" << readsSeeded
+             << ", comparisons proven true=" << comparisonsTrue
+             << ", comparisons proven false=" << comparisonsFalse << '\n';
+
     (void)analysisManager;
-    return PreservedAnalyses::all();
+    return changedIr ? PreservedAnalyses::none() : PreservedAnalyses::all();
   }
 };
 
