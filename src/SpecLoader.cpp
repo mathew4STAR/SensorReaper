@@ -19,7 +19,7 @@ bool SpecLoader::load(const std::string &path, std::string &error) {
   const std::regex entry(
       R"spec("([^"]+)"\s*:\s*\{\s*"min"\s*:\s*(-?[0-9]+)\s*,\s*"max"\s*:\s*(-?[0-9]+)(?:\s*,\s*"max_delta_per_sample"\s*:\s*(-?[0-9]+))?\s*\})spec");
 
-  sensors_.clear();
+  m_sensors.clear();
   for (std::sregex_iterator it(text.begin(), text.end(), entry), end; it != end;
        ++it) {
     // Convert matched decimal text to signed 64-bit limits.
@@ -27,7 +27,7 @@ bool SpecLoader::load(const std::string &path, std::string &error) {
     const int64_t max = std::stoll((*it)[3].str());
     if (min > max) {
       error = "minimum exceeds maximum for sensor: " + (*it)[1].str();
-      sensors_.clear();
+      m_sensors.clear();
       return false;
     }
 
@@ -37,15 +37,15 @@ bool SpecLoader::load(const std::string &path, std::string &error) {
       delta = std::stoll((*it)[4].str());
       if (*delta < 0) {
         error = "max_delta_per_sample must not be negative";
-        sensors_.clear();
+        m_sensors.clear();
         return false;
       }
     }
-    sensors_[(*it)[1].str()] = {min, max, delta};
+    m_sensors[(*it)[1].str()] = {min, max, delta};
   }
 
-  if (sensors_.empty()) {
-    error = "no valid sensor entries found in: " + path;
+  if (m_sensors.empty()) {
+    error = "No valid sensors nothing to prune : (  ,check sensors.json file here: " + path;
     return false;
   }
   return true;
@@ -53,13 +53,13 @@ bool SpecLoader::load(const std::string &path, std::string &error) {
 
 // Looks up a sensor name without changing the loaded specification.
 std::optional<SensorLimits> SpecLoader::find(const std::string &name) const {
-  const auto found = sensors_.find(name);
-  if (found == sensors_.end())
+  const auto found = m_sensors.find(name);
+  if (found == m_sensors.end())
     return std::nullopt;
   return found->second;
 }
 
 // Exposes the parsed map for diagnostics and the standalone test.
 const std::map<std::string, SensorLimits> &SpecLoader::sensors() const {
-  return sensors_;
+  return m_sensors;
 }

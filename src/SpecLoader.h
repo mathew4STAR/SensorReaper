@@ -26,7 +26,7 @@ public:
   const std::map<std::string, SensorLimits> &sensors() const;
 
 private:
-  std::map<std::string, SensorLimits> sensors_;
+  std::map<std::string, SensorLimits> m_sensors;
 };
 
 #endif

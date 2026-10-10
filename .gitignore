@@ -1,2 +1,5 @@
 # Keep local project notes out of version control.
 project_data/
+
+# Keep CMake-generated build outputs out of version control.
+build/
