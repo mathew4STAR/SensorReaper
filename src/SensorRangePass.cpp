@@ -272,8 +272,29 @@ public:
 
     unsigned comparisonsTrue = 0;
     unsigned comparisonsFalse = 0;
+    unsigned constantsFolded = 0;
     bool changedIr = false;
     if (converged) {
+      // Replace a supported SSA result only when its interval has one value.
+      for (Instruction &instruction : instructions(function)) {
+        if (!supportsInterval(instruction) || !instruction.getType()->isIntegerTy())
+          continue;
+        const auto found = ranges.find(&instruction);
+        if (found == ranges.end() || !found->second.isKnown() ||
+            found->second.min() != found->second.max())
+          continue;
+
+        // ConstantInt creates an LLVM integer constant with this instruction's type.
+        instruction.replaceAllUsesWith(ConstantInt::get(
+            instruction.getType(), static_cast<uint64_t>(found->second.min()), true));
+        changedIr = true;
+        ++constantsFolded;
+        if (SensorRangeVerbose)
+          errs() << "sensor-range-elim: folded interval [" << found->second.min()
+                 << ", " << found->second.max() << "] to a constant in "
+                 << function.getName() << '\n';
+      }
+
       for (Instruction &instruction : instructions(function)) {
         auto *comparison = dyn_cast<ICmpInst>(&instruction);
         if (!comparison)
@@ -314,6 +335,7 @@ public:
     if (SensorRangeVerbose)
       errs() << "sensor-range-elim: summary for " << function.getName()
              << ": reads seeded=" << readsSeeded
+             << ", constants folded=" << constantsFolded
              << ", comparisons proven true=" << comparisonsTrue
              << ", comparisons proven false=" << comparisonsFalse << '\n';
 
