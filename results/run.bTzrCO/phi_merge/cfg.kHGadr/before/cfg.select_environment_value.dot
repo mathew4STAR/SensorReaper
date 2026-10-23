@@ -1,0 +1,12 @@
+digraph "CFG for 'select_environment_value' function" {
+	label="CFG for 'select_environment_value' function";
+
+	Node0x5a0c406316e0 [shape=record,color="#b70d28ff", style=filled, fillcolor="#b70d2870" fontname="Courier",label="{1:\l|  %2 = icmp ne i32 %0, 0\l  br i1 %2, label %3, label %5\l|{<s0>T|<s1>F}}"];
+	Node0x5a0c406316e0:s0 -> Node0x5a0c406315e0[tooltip="1 -> 3\nProbability 62.50%" ];
+	Node0x5a0c406316e0:s1 -> Node0x5a0c40633a30[tooltip="1 -> 5\nProbability 37.50%" ];
+	Node0x5a0c406315e0 [shape=record,color="#b70d28ff", style=filled, fillcolor="#bb1b2c70" fontname="Courier",label="{3:\l|  %4 = call i32 @sensor_read(ptr noundef @.str)\l  br label %7\l}"];
+	Node0x5a0c406315e0 -> Node0x5a0c40633ce0[tooltip="3 -> 7\nProbability 100.00%" ];
+	Node0x5a0c40633a30 [shape=record,color="#3d50c3ff", style=filled, fillcolor="#c32e3170" fontname="Courier",label="{5:\l|  %6 = call i32 @sensor_read(ptr noundef @.str.1)\l  br label %7\l}"];
+	Node0x5a0c40633a30 -> Node0x5a0c40633ce0[tooltip="5 -> 7\nProbability 100.00%" ];
+	Node0x5a0c40633ce0 [shape=record,color="#b70d28ff", style=filled, fillcolor="#b70d2870" fontname="Courier",label="{7:\l|  %.0 = phi i32 [ %4, %3 ], [ %6, %5 ]\l  ret i32 %.0\l}"];
+}

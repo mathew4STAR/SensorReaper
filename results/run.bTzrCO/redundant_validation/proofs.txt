@@ -1,0 +1,6 @@
+sensor-range-elim: seeded temp_sensor as [-40, 85] in redundant_validation
+sensor-range-elim: reads seeded in redundant_validation: 1
+sensor-range-elim: inferred [0, 1] in redundant_validation
+sensor-range-elim: icmp sge %1, -40 is always true: [-40, 85] versus [-40, -40]
+sensor-range-elim: icmp sle %1, 85 is always true: [-40, 85] versus [85, 85]
+sensor-range-elim: summary for redundant_validation: reads seeded=1, constants folded=0, comparisons proven true=2, comparisons proven false=0

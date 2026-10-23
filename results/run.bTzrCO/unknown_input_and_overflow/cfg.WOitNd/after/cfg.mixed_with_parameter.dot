@@ -1,0 +1,10 @@
+digraph "CFG for 'mixed_with_parameter' function" {
+	label="CFG for 'mixed_with_parameter' function";
+
+	Node0x631e75b96850 [shape=record,color="#b70d28ff", style=filled, fillcolor="#b70d2870" fontname="Courier",label="{1:\l|  %2 = call i32 @sensor_read(ptr noundef @.str)\l  %3 = add nsw i32 %2, %0\l  %4 = icmp sgt i32 %3, 200\l  br i1 %4, label %5, label %6\l|{<s0>T|<s1>F}}"];
+	Node0x631e75b96850:s0 -> Node0x631e75b98db0[tooltip="1 -> 5\nProbability 50.00%" ];
+	Node0x631e75b96850:s1 -> Node0x631e75b98e00[tooltip="1 -> 6\nProbability 50.00%" ];
+	Node0x631e75b98db0 [shape=record,color="#3d50c3ff", style=filled, fillcolor="#be242e70" fontname="Courier",label="{5:\l|  call void @alarm()\l  br label %6\l}"];
+	Node0x631e75b98db0 -> Node0x631e75b98e00[tooltip="5 -> 6\nProbability 100.00%" ];
+	Node0x631e75b98e00 [shape=record,color="#b70d28ff", style=filled, fillcolor="#b70d2870" fontname="Courier",label="{6:\l|  %.0 = phi i32 [ 1, %5 ], [ 0, %1 ]\l  ret i32 %.0\l}"];
+}

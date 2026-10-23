@@ -1,0 +1,5 @@
+digraph "CFG for 'extend_humidity' function" {
+	label="CFG for 'extend_humidity' function";
+
+	Node0x5ecfd5125410 [shape=record,color="#b70d28ff", style=filled, fillcolor="#b70d2870" fontname="Courier",label="{0:\l|  %1 = call i32 @sensor_read(ptr noundef @.str.1)\l  %2 = sext i32 %1 to i64\l  ret i64 %2\l}"];
+}

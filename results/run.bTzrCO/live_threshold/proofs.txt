@@ -1,0 +1,4 @@
+sensor-range-elim: seeded temp_sensor as [-40, 85] in live_threshold
+sensor-range-elim: reads seeded in live_threshold: 1
+sensor-range-elim: inferred [0, 1] in live_threshold
+sensor-range-elim: summary for live_threshold: reads seeded=1, constants folded=0, comparisons proven true=0, comparisons proven false=0

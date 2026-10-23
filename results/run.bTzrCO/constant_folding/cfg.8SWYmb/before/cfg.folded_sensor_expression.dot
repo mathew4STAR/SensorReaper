@@ -1,0 +1,5 @@
+digraph "CFG for 'folded_sensor_expression' function" {
+	label="CFG for 'folded_sensor_expression' function";
+
+	Node0x5e7b0e0255c0 [shape=record,color="#b70d28ff", style=filled, fillcolor="#b70d2870" fontname="Courier",label="{0:\l|  %1 = call i32 @sensor_read(ptr noundef @.str)\l  %2 = mul nsw i32 %1, 0\l  ret i32 %2\l}"];
+}

@@ -1,0 +1,6 @@
+sensor-range-elim: seeded temp_sensor as [-40, 85] in arithmetic_chain
+sensor-range-elim: reads seeded in arithmetic_chain: 1
+sensor-range-elim: inferred [-80, 170] in arithmetic_chain
+sensor-range-elim: inferred [0, 1] in arithmetic_chain
+sensor-range-elim: icmp sgt %2, 200 is always false: [-80, 170] versus [200, 200]
+sensor-range-elim: summary for arithmetic_chain: reads seeded=1, constants folded=0, comparisons proven true=0, comparisons proven false=1

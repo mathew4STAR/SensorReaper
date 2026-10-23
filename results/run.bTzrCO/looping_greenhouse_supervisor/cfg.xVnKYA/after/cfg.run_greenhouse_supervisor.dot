@@ -1,0 +1,40 @@
+digraph "CFG for 'run_greenhouse_supervisor' function" {
+	label="CFG for 'run_greenhouse_supervisor' function";
+
+	Node0x5ad5706e5120 [shape=record,color="#3d50c3ff", style=filled, fillcolor="#d6524470" fontname="Courier",label="{2:\l|  br label %3\l}"];
+	Node0x5ad5706e5120 -> Node0x5ad5706e5020[tooltip="2 -> 3\nProbability 100.00%" ];
+	Node0x5ad5706e5020 [shape=record,color="#b70d28ff", style=filled, fillcolor="#b70d2870" fontname="Courier",label="{3:\l|  %.01 = phi i32 [ 0, %2 ], [ %.01, %27 ]\l  %.0 = phi i32 [ 0, %2 ], [ %28, %27 ]\l  %4 = icmp slt i32 %.0, %0\l  br i1 %4, label %5, label %29\l|{<s0>T|<s1>F}}"];
+	Node0x5ad5706e5020:s0 -> Node0x5ad5706e7a70[tooltip="3 -> 5\nProbability 96.88%" ];
+	Node0x5ad5706e5020:s1 -> Node0x5ad5706e7b00[tooltip="3 -> 29\nProbability 3.12%" ];
+	Node0x5ad5706e7a70 [shape=record,color="#b70d28ff", style=filled, fillcolor="#b70d2870" fontname="Courier",label="{5:\l|  %6 = call i32 @sensor_read(ptr noundef @.str)\l  %7 = call i32 @sensor_read(ptr noundef @.str.1)\l  %8 = call i32 @sensor_read(ptr noundef @.str.2)\l  %9 = call i32 @sensor_read(ptr noundef @.str.3)\l  %10 = call i32 @sensor_read(ptr noundef @.str.4)\l  %11 = icmp sgt i32 %6, 50\l  %12 = icmp ne i32 %1, 0\l  %or.cond = or i1 %11, %12\l  br i1 %or.cond, label %13, label %14\l|{<s0>T|<s1>F}}"];
+	Node0x5ad5706e7a70:s0 -> Node0x5ad5706e8830[tooltip="5 -> 13\nProbability 50.00%" ];
+	Node0x5ad5706e7a70:s1 -> Node0x5ad5706e8880[tooltip="5 -> 14\nProbability 50.00%" ];
+	Node0x5ad5706e8830 [shape=record,color="#3d50c3ff", style=filled, fillcolor="#be242e70" fontname="Courier",label="{13:\l|  call void @fan_on()\l  call void @alarm()\l  br label %15\l}"];
+	Node0x5ad5706e8830 -> Node0x5ad5706e8d20[tooltip="13 -> 15\nProbability 100.00%" ];
+	Node0x5ad5706e8880 [shape=record,color="#3d50c3ff", style=filled, fillcolor="#be242e70" fontname="Courier",label="{14:\l|  call void @fan_off()\l  br label %15\l}"];
+	Node0x5ad5706e8880 -> Node0x5ad5706e8d20[tooltip="14 -> 15\nProbability 100.00%" ];
+	Node0x5ad5706e8d20 [shape=record,color="#b70d28ff", style=filled, fillcolor="#b70d2870" fontname="Courier",label="{15:\l|  %16 = icmp slt i32 %7, 30\l  br i1 %16, label %17, label %18\l|{<s0>T|<s1>F}}"];
+	Node0x5ad5706e8d20:s0 -> Node0x5ad5706e9030[tooltip="15 -> 17\nProbability 50.00%" ];
+	Node0x5ad5706e8d20:s1 -> Node0x5ad5706e9080[tooltip="15 -> 18\nProbability 50.00%" ];
+	Node0x5ad5706e9030 [shape=record,color="#3d50c3ff", style=filled, fillcolor="#be242e70" fontname="Courier",label="{17:\l|  call void @mist_on()\l  br label %19\l}"];
+	Node0x5ad5706e9030 -> Node0x5ad5706e9330[tooltip="17 -> 19\nProbability 100.00%" ];
+	Node0x5ad5706e9080 [shape=record,color="#3d50c3ff", style=filled, fillcolor="#be242e70" fontname="Courier",label="{18:\l|  call void @mist_off()\l  br label %19\l}"];
+	Node0x5ad5706e9080 -> Node0x5ad5706e9330[tooltip="18 -> 19\nProbability 100.00%" ];
+	Node0x5ad5706e9330 [shape=record,color="#b70d28ff", style=filled, fillcolor="#b70d2870" fontname="Courier",label="{19:\l|  %20 = icmp slt i32 %8, 900\l  br i1 %20, label %21, label %22\l|{<s0>T|<s1>F}}"];
+	Node0x5ad5706e9330:s0 -> Node0x5ad5706e96d0[tooltip="19 -> 21\nProbability 50.00%" ];
+	Node0x5ad5706e9330:s1 -> Node0x5ad5706e9720[tooltip="19 -> 22\nProbability 50.00%" ];
+	Node0x5ad5706e96d0 [shape=record,color="#3d50c3ff", style=filled, fillcolor="#be242e70" fontname="Courier",label="{21:\l|  call void @vents_open()\l  br label %23\l}"];
+	Node0x5ad5706e96d0 -> Node0x5ad5706e99d0[tooltip="21 -> 23\nProbability 100.00%" ];
+	Node0x5ad5706e9720 [shape=record,color="#3d50c3ff", style=filled, fillcolor="#be242e70" fontname="Courier",label="{22:\l|  call void @vents_close()\l  br label %23\l}"];
+	Node0x5ad5706e9720 -> Node0x5ad5706e99d0[tooltip="22 -> 23\nProbability 100.00%" ];
+	Node0x5ad5706e99d0 [shape=record,color="#b70d28ff", style=filled, fillcolor="#b70d2870" fontname="Courier",label="{23:\l|  %24 = icmp slt i32 %10, 100\l  br i1 %24, label %25, label %26\l|{<s0>T|<s1>F}}"];
+	Node0x5ad5706e99d0:s0 -> Node0x5ad5706e9d70[tooltip="23 -> 25\nProbability 50.00%" ];
+	Node0x5ad5706e99d0:s1 -> Node0x5ad5706e9dc0[tooltip="23 -> 26\nProbability 50.00%" ];
+	Node0x5ad5706e9d70 [shape=record,color="#3d50c3ff", style=filled, fillcolor="#be242e70" fontname="Courier",label="{25:\l|  call void @grow_lights_on()\l  br label %27\l}"];
+	Node0x5ad5706e9d70 -> Node0x5ad5706e77e0[tooltip="25 -> 27\nProbability 100.00%" ];
+	Node0x5ad5706e9dc0 [shape=record,color="#3d50c3ff", style=filled, fillcolor="#be242e70" fontname="Courier",label="{26:\l|  call void @grow_lights_off()\l  br label %27\l}"];
+	Node0x5ad5706e9dc0 -> Node0x5ad5706e77e0[tooltip="26 -> 27\nProbability 100.00%" ];
+	Node0x5ad5706e77e0 [shape=record,color="#b70d28ff", style=filled, fillcolor="#b70d2870" fontname="Courier",label="{27:\l|  call void @record_cycle(i32 noundef %.0, i32 noundef %6, i32 noundef %7,\l... i32 noundef %8, i32 noundef %9, i32 noundef %10)\l  %28 = add nsw i32 %.0, 1\l  br label %3, !llvm.loop !6\l}"];
+	Node0x5ad5706e77e0 -> Node0x5ad5706e5020[tooltip="27 -> 3\nProbability 100.00%" ];
+	Node0x5ad5706e7b00 [shape=record,color="#3d50c3ff", style=filled, fillcolor="#d6524470" fontname="Courier",label="{29:\l|  ret i32 %.01\l}"];
+}

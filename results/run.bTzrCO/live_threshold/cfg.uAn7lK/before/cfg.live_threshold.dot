@@ -1,0 +1,10 @@
+digraph "CFG for 'live_threshold' function" {
+	label="CFG for 'live_threshold' function";
+
+	Node0x56d2ac738690 [shape=record,color="#b70d28ff", style=filled, fillcolor="#b70d2870" fontname="Courier",label="{0:\l|  %1 = call i32 @sensor_read(ptr noundef @.str)\l  %2 = icmp sgt i32 %1, 50\l  br i1 %2, label %3, label %4\l|{<s0>T|<s1>F}}"];
+	Node0x56d2ac738690:s0 -> Node0x56d2ac73ab60[tooltip="0 -> 3\nProbability 50.00%" ];
+	Node0x56d2ac738690:s1 -> Node0x56d2ac73abf0[tooltip="0 -> 4\nProbability 50.00%" ];
+	Node0x56d2ac73ab60 [shape=record,color="#3d50c3ff", style=filled, fillcolor="#be242e70" fontname="Courier",label="{3:\l|  call void @alarm()\l  br label %4\l}"];
+	Node0x56d2ac73ab60 -> Node0x56d2ac73abf0[tooltip="3 -> 4\nProbability 100.00%" ];
+	Node0x56d2ac73abf0 [shape=record,color="#b70d28ff", style=filled, fillcolor="#b70d2870" fontname="Courier",label="{4:\l|  %.0 = phi i32 [ 1, %3 ], [ 0, %0 ]\l  ret i32 %.0\l}"];
+}

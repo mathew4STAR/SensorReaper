@@ -1,0 +1,32 @@
+TranslationUnitDecl 0x5b649cb21278 <<invalid sloc>> <invalid sloc>
+|-TypedefDecl 0x5b649cb21aa8 <<invalid sloc>> <invalid sloc> implicit __int128_t '__int128'
+| `-BuiltinType 0x5b649cb21840 '__int128'
+|-TypedefDecl 0x5b649cb21b18 <<invalid sloc>> <invalid sloc> implicit __uint128_t 'unsigned __int128'
+| `-BuiltinType 0x5b649cb21860 'unsigned __int128'
+|-TypedefDecl 0x5b649cb21e20 <<invalid sloc>> <invalid sloc> implicit __NSConstantString 'struct __NSConstantString_tag'
+| `-RecordType 0x5b649cb21bf0 'struct __NSConstantString_tag'
+|   `-Record 0x5b649cb21b70 '__NSConstantString_tag'
+|-TypedefDecl 0x5b649cb21ec8 <<invalid sloc>> <invalid sloc> implicit __builtin_ms_va_list 'char *'
+| `-PointerType 0x5b649cb21e80 'char *'
+|   `-BuiltinType 0x5b649cb21320 'char'
+|-TypedefDecl 0x5b649cb221c0 <<invalid sloc>> <invalid sloc> implicit __builtin_va_list 'struct __va_list_tag[1]'
+| `-ConstantArrayType 0x5b649cb22160 'struct __va_list_tag[1]' 1 
+|   `-RecordType 0x5b649cb21fa0 'struct __va_list_tag'
+|     `-Record 0x5b649cb21f20 '__va_list_tag'
+|-FunctionDecl 0x5b649cb814d8 </home/mathew/Documents/ChatGPT/SensorProject/sensor-range-opt/tests/c/constant_folding.c:2:1, col:33> col:5 used sensor_read 'int (const char *)'
+| `-ParmVarDecl 0x5b649cb81400 <col:17, col:29> col:29 name 'const char *'
+`-FunctionDecl 0x5b649cb816a8 <line:5:1, line:8:1> line:5:5 folded_sensor_expression 'int (void)'
+  `-CompoundStmt 0x5b649cb819a0 <col:36, line:8:1>
+    |-DeclStmt 0x5b649cb81900 <line:6:3, col:48>
+    | `-VarDecl 0x5b649cb81768 <col:3, col:47> col:7 used humidity 'int' cinit
+    |   `-CallExpr 0x5b649cb818a8 <col:18, col:47> 'int'
+    |     |-ImplicitCastExpr 0x5b649cb81890 <col:18> 'int (*)(const char *)' <FunctionToPointerDecay>
+    |     | `-DeclRefExpr 0x5b649cb817d0 <col:18> 'int (const char *)' Function 0x5b649cb814d8 'sensor_read' 'int (const char *)'
+    |     `-ImplicitCastExpr 0x5b649cb818e8 <col:30> 'const char *' <NoOp>
+    |       `-ImplicitCastExpr 0x5b649cb818d0 <col:30> 'char *' <ArrayToPointerDecay>
+    |         `-StringLiteral 0x5b649cb81830 <col:30> 'char[16]' lvalue "humidity_sensor"
+    `-ReturnStmt 0x5b649cb81990 <line:7:3, col:21>
+      `-BinaryOperator 0x5b649cb81970 <col:10, col:21> 'int' '*'
+        |-ImplicitCastExpr 0x5b649cb81958 <col:10> 'int' <LValueToRValue>
+        | `-DeclRefExpr 0x5b649cb81918 <col:10> 'int' lvalue Var 0x5b649cb81768 'humidity' 'int'
+        `-IntegerLiteral 0x5b649cb81938 <col:21> 'int' 0

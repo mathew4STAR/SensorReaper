@@ -1,0 +1,5 @@
+digraph "CFG for 'transform_temperature' function" {
+	label="CFG for 'transform_temperature' function";
+
+	Node0x5ac4b11ce810 [shape=record,color="#b70d28ff", style=filled, fillcolor="#b70d2870" fontname="Courier",label="{0:\l|  %1 = call i32 @sensor_read(ptr noundef @.str)\l  %2 = add nsw i32 %1, %1\l  %3 = sub nsw i32 %2, 10\l  %4 = mul nsw i32 %3, 2\l  ret i32 %4\l}"];
+}

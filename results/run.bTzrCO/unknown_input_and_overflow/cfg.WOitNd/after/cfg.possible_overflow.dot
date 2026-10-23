@@ -1,0 +1,10 @@
+digraph "CFG for 'possible_overflow' function" {
+	label="CFG for 'possible_overflow' function";
+
+	Node0x631e75b99e50 [shape=record,color="#b70d28ff", style=filled, fillcolor="#b70d2870" fontname="Courier",label="{0:\l|  %1 = call i32 @sensor_read(ptr noundef @.str)\l  %2 = add nsw i32 %1, 2147483647\l  %3 = icmp sgt i32 %2, 0\l  br i1 %3, label %4, label %5\l|{<s0>T|<s1>F}}"];
+	Node0x631e75b99e50:s0 -> Node0x631e75b9a0b0[tooltip="0 -> 4\nProbability 62.50%" ];
+	Node0x631e75b99e50:s1 -> Node0x631e75b9a100[tooltip="0 -> 5\nProbability 37.50%" ];
+	Node0x631e75b9a0b0 [shape=record,color="#b70d28ff", style=filled, fillcolor="#bb1b2c70" fontname="Courier",label="{4:\l|  call void @alarm()\l  br label %5\l}"];
+	Node0x631e75b9a0b0 -> Node0x631e75b9a100[tooltip="4 -> 5\nProbability 100.00%" ];
+	Node0x631e75b9a100 [shape=record,color="#b70d28ff", style=filled, fillcolor="#b70d2870" fontname="Courier",label="{5:\l|  %.0 = phi i32 [ 1, %4 ], [ 0, %0 ]\l  ret i32 %.0\l}"];
+}

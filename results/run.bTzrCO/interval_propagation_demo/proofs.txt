@@ -1,0 +1,18 @@
+sensor-range-elim: seeded temp_sensor as [-40, 85] in transform_temperature
+sensor-range-elim: reads seeded in transform_temperature: 1
+sensor-range-elim: inferred [-80, 170] in transform_temperature
+sensor-range-elim: inferred [-90, 160] in transform_temperature
+sensor-range-elim: inferred [-180, 320] in transform_temperature
+sensor-range-elim: summary for transform_temperature: reads seeded=1, constants folded=0, comparisons proven true=0, comparisons proven false=0
+sensor-range-elim: seeded temp_sensor as [-40, 85] in extend_temperature
+sensor-range-elim: reads seeded in extend_temperature: 1
+sensor-range-elim: inferred [-40, 85] in extend_temperature
+sensor-range-elim: summary for extend_temperature: reads seeded=1, constants folded=0, comparisons proven true=0, comparisons proven false=0
+sensor-range-elim: seeded humidity_sensor as [0, 100] in extend_humidity
+sensor-range-elim: reads seeded in extend_humidity: 1
+sensor-range-elim: inferred [0, 100] in extend_humidity
+sensor-range-elim: summary for extend_humidity: reads seeded=1, constants folded=0, comparisons proven true=0, comparisons proven false=0
+sensor-range-elim: seeded temp_sensor as [-40, 85] in narrow_temperature
+sensor-range-elim: reads seeded in narrow_temperature: 1
+sensor-range-elim: inferred [-40, 85] in narrow_temperature
+sensor-range-elim: summary for narrow_temperature: reads seeded=1, constants folded=0, comparisons proven true=0, comparisons proven false=0

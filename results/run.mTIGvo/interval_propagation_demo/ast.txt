@@ -1,0 +1,75 @@
+TranslationUnitDecl 0x5ce5d50b10b8 <<invalid sloc>> <invalid sloc>
+|-TypedefDecl 0x5ce5d50b18e8 <<invalid sloc>> <invalid sloc> implicit __int128_t '__int128'
+| `-BuiltinType 0x5ce5d50b1680 '__int128'
+|-TypedefDecl 0x5ce5d50b1958 <<invalid sloc>> <invalid sloc> implicit __uint128_t 'unsigned __int128'
+| `-BuiltinType 0x5ce5d50b16a0 'unsigned __int128'
+|-TypedefDecl 0x5ce5d50b1c60 <<invalid sloc>> <invalid sloc> implicit __NSConstantString 'struct __NSConstantString_tag'
+| `-RecordType 0x5ce5d50b1a30 'struct __NSConstantString_tag'
+|   `-Record 0x5ce5d50b19b0 '__NSConstantString_tag'
+|-TypedefDecl 0x5ce5d50b1d08 <<invalid sloc>> <invalid sloc> implicit __builtin_ms_va_list 'char *'
+| `-PointerType 0x5ce5d50b1cc0 'char *'
+|   `-BuiltinType 0x5ce5d50b1160 'char'
+|-TypedefDecl 0x5ce5d50b2000 <<invalid sloc>> <invalid sloc> implicit __builtin_va_list 'struct __va_list_tag[1]'
+| `-ConstantArrayType 0x5ce5d50b1fa0 'struct __va_list_tag[1]' 1 
+|   `-RecordType 0x5ce5d50b1de0 'struct __va_list_tag'
+|     `-Record 0x5ce5d50b1d60 '__va_list_tag'
+|-FunctionDecl 0x5ce5d51116f8 </home/mathew/Documents/ChatGPT/SensorProject/sensor-range-opt/tests/c/interval_propagation_demo.c:2:1, col:33> col:5 used sensor_read 'int (const char *)'
+| `-ParmVarDecl 0x5ce5d5111620 <col:17, col:29> col:29 name 'const char *'
+|-FunctionDecl 0x5ce5d51118c8 <line:5:1, line:10:1> line:5:5 transform_temperature 'int (void)'
+| `-CompoundStmt 0x5ce5d5111df8 <col:33, line:10:1>
+|   |-DeclStmt 0x5ce5d5111b20 <line:6:3, col:47>
+|   | `-VarDecl 0x5ce5d5111988 <col:3, col:46> col:7 used temperature 'int' cinit
+|   |   `-CallExpr 0x5ce5d5111ac8 <col:21, col:46> 'int'
+|   |     |-ImplicitCastExpr 0x5ce5d5111ab0 <col:21> 'int (*)(const char *)' <FunctionToPointerDecay>
+|   |     | `-DeclRefExpr 0x5ce5d51119f0 <col:21> 'int (const char *)' Function 0x5ce5d51116f8 'sensor_read' 'int (const char *)'
+|   |     `-ImplicitCastExpr 0x5ce5d5111b08 <col:33> 'const char *' <NoOp>
+|   |       `-ImplicitCastExpr 0x5ce5d5111af0 <col:33> 'char *' <ArrayToPointerDecay>
+|   |         `-StringLiteral 0x5ce5d5111a50 <col:33> 'char[12]' lvalue "temp_sensor"
+|   |-DeclStmt 0x5ce5d5111c48 <line:7:3, col:42>
+|   | `-VarDecl 0x5ce5d5111b50 <col:3, col:31> col:7 used doubled 'int' cinit
+|   |   `-BinaryOperator 0x5ce5d5111c28 <col:17, col:31> 'int' '+'
+|   |     |-ImplicitCastExpr 0x5ce5d5111bf8 <col:17> 'int' <LValueToRValue>
+|   |     | `-DeclRefExpr 0x5ce5d5111bb8 <col:17> 'int' lvalue Var 0x5ce5d5111988 'temperature' 'int'
+|   |     `-ImplicitCastExpr 0x5ce5d5111c10 <col:31> 'int' <LValueToRValue>
+|   |       `-DeclRefExpr 0x5ce5d5111bd8 <col:31> 'int' lvalue Var 0x5ce5d5111988 'temperature' 'int'
+|   |-DeclStmt 0x5ce5d5111d58 <line:8:3, col:30>
+|   | `-VarDecl 0x5ce5d5111c78 <col:3, col:28> col:7 used adjusted 'int' cinit
+|   |   `-BinaryOperator 0x5ce5d5111d38 <col:18, col:28> 'int' '-'
+|   |     |-ImplicitCastExpr 0x5ce5d5111d20 <col:18> 'int' <LValueToRValue>
+|   |     | `-DeclRefExpr 0x5ce5d5111ce0 <col:18> 'int' lvalue Var 0x5ce5d5111b50 'doubled' 'int'
+|   |     `-IntegerLiteral 0x5ce5d5111d00 <col:28> 'int' 10
+|   `-ReturnStmt 0x5ce5d5111de8 <line:9:3, col:21>
+|     `-BinaryOperator 0x5ce5d5111dc8 <col:10, col:21> 'int' '*'
+|       |-ImplicitCastExpr 0x5ce5d5111db0 <col:10> 'int' <LValueToRValue>
+|       | `-DeclRefExpr 0x5ce5d5111d70 <col:10> 'int' lvalue Var 0x5ce5d5111c78 'adjusted' 'int'
+|       `-IntegerLiteral 0x5ce5d5111d90 <col:21> 'int' 2
+|-FunctionDecl 0x5ce5d5111ef8 <line:13:1, line:15:1> line:13:6 extend_temperature 'long (void)'
+| `-CompoundStmt 0x5ce5d5112080 <col:31, line:15:1>
+|   `-ReturnStmt 0x5ce5d5112070 <line:14:3, col:35>
+|     `-ImplicitCastExpr 0x5ce5d5112058 <col:10, col:35> 'long' <IntegralCast>
+|       `-CallExpr 0x5ce5d5112000 <col:10, col:35> 'int'
+|         |-ImplicitCastExpr 0x5ce5d5111fe8 <col:10> 'int (*)(const char *)' <FunctionToPointerDecay>
+|         | `-DeclRefExpr 0x5ce5d5111fa0 <col:10> 'int (const char *)' Function 0x5ce5d51116f8 'sensor_read' 'int (const char *)'
+|         `-ImplicitCastExpr 0x5ce5d5112040 <col:22> 'const char *' <NoOp>
+|           `-ImplicitCastExpr 0x5ce5d5112028 <col:22> 'char *' <ArrayToPointerDecay>
+|             `-StringLiteral 0x5ce5d5111fc0 <col:22> 'char[12]' lvalue "temp_sensor"
+|-FunctionDecl 0x5ce5d5112168 <line:18:1, line:20:1> line:18:15 extend_humidity 'unsigned long (void)'
+| `-CompoundStmt 0x5ce5d5112358 <col:37, line:20:1>
+|   `-ReturnStmt 0x5ce5d5112348 <line:19:3, col:54>
+|     `-CStyleCastExpr 0x5ce5d5112320 <col:10, col:54> 'unsigned long' <IntegralCast>
+|       `-CallExpr 0x5ce5d51122b0 <col:25, col:54> 'int'
+|         |-ImplicitCastExpr 0x5ce5d5112298 <col:25> 'int (*)(const char *)' <FunctionToPointerDecay>
+|         | `-DeclRefExpr 0x5ce5d5112210 <col:25> 'int (const char *)' Function 0x5ce5d51116f8 'sensor_read' 'int (const char *)'
+|         `-ImplicitCastExpr 0x5ce5d51122f0 <col:37> 'const char *' <NoOp>
+|           `-ImplicitCastExpr 0x5ce5d51122d8 <col:37> 'char *' <ArrayToPointerDecay>
+|             `-StringLiteral 0x5ce5d5112270 <col:37> 'char[16]' lvalue "humidity_sensor"
+`-FunctionDecl 0x5ce5d5112448 <line:23:1, line:25:1> line:23:7 narrow_temperature 'short (void)'
+  `-CompoundStmt 0x5ce5d51125f8 <col:32, line:25:1>
+    `-ReturnStmt 0x5ce5d51125e8 <line:24:3, col:42>
+      `-CStyleCastExpr 0x5ce5d51125c0 <col:10, col:42> 'short' <IntegralCast>
+        `-CallExpr 0x5ce5d5112550 <col:17, col:42> 'int'
+          |-ImplicitCastExpr 0x5ce5d5112538 <col:17> 'int (*)(const char *)' <FunctionToPointerDecay>
+          | `-DeclRefExpr 0x5ce5d51124f0 <col:17> 'int (const char *)' Function 0x5ce5d51116f8 'sensor_read' 'int (const char *)'
+          `-ImplicitCastExpr 0x5ce5d5112590 <col:29> 'const char *' <NoOp>
+            `-ImplicitCastExpr 0x5ce5d5112578 <col:29> 'char *' <ArrayToPointerDecay>
+              `-StringLiteral 0x5ce5d5112510 <col:29> 'char[12]' lvalue "temp_sensor"

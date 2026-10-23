@@ -1,0 +1,5 @@
+digraph "CFG for 'read_temperature' function" {
+	label="CFG for 'read_temperature' function";
+
+	Node0x5ad9d87865a0 [shape=record,color="#b70d28ff", style=filled, fillcolor="#b70d2870" fontname="Courier",label="{0:\l|  %1 = call i32 @sensor_read(ptr noundef @.str)\l  ret i32 %1\l}"];
+}

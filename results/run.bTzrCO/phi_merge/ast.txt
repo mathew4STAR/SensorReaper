@@ -1,0 +1,37 @@
+TranslationUnitDecl 0x6313877962d8 <<invalid sloc>> <invalid sloc>
+|-TypedefDecl 0x631387796b08 <<invalid sloc>> <invalid sloc> implicit __int128_t '__int128'
+| `-BuiltinType 0x6313877968a0 '__int128'
+|-TypedefDecl 0x631387796b78 <<invalid sloc>> <invalid sloc> implicit __uint128_t 'unsigned __int128'
+| `-BuiltinType 0x6313877968c0 'unsigned __int128'
+|-TypedefDecl 0x631387796e80 <<invalid sloc>> <invalid sloc> implicit __NSConstantString 'struct __NSConstantString_tag'
+| `-RecordType 0x631387796c50 'struct __NSConstantString_tag'
+|   `-Record 0x631387796bd0 '__NSConstantString_tag'
+|-TypedefDecl 0x631387796f28 <<invalid sloc>> <invalid sloc> implicit __builtin_ms_va_list 'char *'
+| `-PointerType 0x631387796ee0 'char *'
+|   `-BuiltinType 0x631387796380 'char'
+|-TypedefDecl 0x631387797220 <<invalid sloc>> <invalid sloc> implicit __builtin_va_list 'struct __va_list_tag[1]'
+| `-ConstantArrayType 0x6313877971c0 'struct __va_list_tag[1]' 1 
+|   `-RecordType 0x631387797000 'struct __va_list_tag'
+|     `-Record 0x631387796f80 '__va_list_tag'
+|-FunctionDecl 0x6313877f6538 </home/mathew/Documents/ChatGPT/SensorProject/sensor-range-opt/tests/c/phi_merge.c:2:1, col:33> col:5 used sensor_read 'int (const char *)'
+| `-ParmVarDecl 0x6313877f6460 <col:17, col:29> col:29 name 'const char *'
+`-FunctionDecl 0x6313877f6718 <line:5:1, line:9:1> line:5:5 select_environment_value 'int (int)'
+  |-ParmVarDecl 0x6313877f6648 <col:30, col:34> col:34 used prefer_humidity 'int'
+  `-CompoundStmt 0x6313877f6a68 <col:51, line:9:1>
+    |-IfStmt 0x6313877f6940 <line:6:3, line:7:41>
+    | |-ImplicitCastExpr 0x6313877f67e8 <line:6:7> 'int' <LValueToRValue>
+    | | `-DeclRefExpr 0x6313877f67c8 <col:7> 'int' lvalue ParmVar 0x6313877f6648 'prefer_humidity' 'int'
+    | `-ReturnStmt 0x6313877f6930 <line:7:5, col:41>
+    |   `-CallExpr 0x6313877f68d8 <col:12, col:41> 'int'
+    |     |-ImplicitCastExpr 0x6313877f68c0 <col:12> 'int (*)(const char *)' <FunctionToPointerDecay>
+    |     | `-DeclRefExpr 0x6313877f6800 <col:12> 'int (const char *)' Function 0x6313877f6538 'sensor_read' 'int (const char *)'
+    |     `-ImplicitCastExpr 0x6313877f6918 <col:24> 'const char *' <NoOp>
+    |       `-ImplicitCastExpr 0x6313877f6900 <col:24> 'char *' <ArrayToPointerDecay>
+    |         `-StringLiteral 0x6313877f6860 <col:24> 'char[16]' lvalue "humidity_sensor"
+    `-ReturnStmt 0x6313877f6a58 <line:8:3, col:35>
+      `-CallExpr 0x6313877f6a00 <col:10, col:35> 'int'
+        |-ImplicitCastExpr 0x6313877f69e8 <col:10> 'int (*)(const char *)' <FunctionToPointerDecay>
+        | `-DeclRefExpr 0x6313877f6960 <col:10> 'int (const char *)' Function 0x6313877f6538 'sensor_read' 'int (const char *)'
+        `-ImplicitCastExpr 0x6313877f6a40 <col:22> 'const char *' <NoOp>
+          `-ImplicitCastExpr 0x6313877f6a28 <col:22> 'char *' <ArrayToPointerDecay>
+            `-StringLiteral 0x6313877f69c0 <col:22> 'char[12]' lvalue "temp_sensor"
