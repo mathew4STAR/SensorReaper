@@ -1,0 +1,73 @@
+# SensorReaper measured results
+
+Generated (UTC): 2026-10-23T06:11:51.908362+00:00
+Clang: Ubuntu clang version 18.1.8 (++20240731024944+3b5b5c1ec4a3-1~exp1~20240731145000.144)
+opt: Ubuntu LLVM version 18.1.8
+Target: x86_64-pc-linux-gnu
+Size tool: /usr/bin/llvm-size-18
+Artifacts: evaluation.akmvq__i/
+
+Pipelines: mem2reg,simplifycfg,dce versus mem2reg,sensor-range-elim,simplifycfg,dce.
+C input: -O0 -Xclang -disable-O0-optnone. Objects: clang -O0 -c on each IR.
+Branches: br i1 instructions. Blocks: explicit labels plus implicit entries.
+Instructions: nonempty, noncomment, nonlabel lines inside function bodies;
+current scalar fixtures use one line per instruction. Multiline IR yields n/a.
+Text bytes: sum of .text and .text.* sections from size -A on unlinked objects.
+Reduction = baseline minus ours; negative means growth. Zero-baseline % is n/a.
+Proof totals are summed across functions, repeated per metric (do not sum rows).
+Host code-size/IR measurements are not ESP32 execution-time or energy results.
+
+| test | metric | baseline | ours | reduction | reduction_percent | proven_true | proven_false |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| arithmetic_chain | conditional_branches | 1 | 0 | 1 | 100.00 | 0 | 1 |
+| arithmetic_chain | instructions | 8 | 2 | 6 | 75.00 | 0 | 1 |
+| arithmetic_chain | basic_blocks | 3 | 1 | 2 | 66.67 | 0 | 1 |
+| arithmetic_chain | text_bytes | 63 | 20 | 43 | 68.25 | 0 | 1 |
+| constant_folding | conditional_branches | 0 | 0 | 0 | n/a | 0 | 0 |
+| constant_folding | instructions | 3 | 2 | 1 | 33.33 | 0 | 0 |
+| constant_folding | basic_blocks | 1 | 1 | 0 | 0.00 | 0 | 0 |
+| constant_folding | text_bytes | 21 | 20 | 1 | 4.76 | 0 | 0 |
+| dead_high_bound | conditional_branches | 1 | 0 | 1 | 100.00 | 0 | 1 |
+| dead_high_bound | instructions | 7 | 2 | 5 | 71.43 | 0 | 1 |
+| dead_high_bound | basic_blocks | 3 | 1 | 2 | 66.67 | 0 | 1 |
+| dead_high_bound | text_bytes | 61 | 20 | 41 | 67.21 | 0 | 1 |
+| dead_low_bound | conditional_branches | 1 | 0 | 1 | 100.00 | 0 | 1 |
+| dead_low_bound | instructions | 7 | 2 | 5 | 71.43 | 0 | 1 |
+| dead_low_bound | basic_blocks | 3 | 1 | 2 | 66.67 | 0 | 1 |
+| dead_low_bound | text_bytes | 58 | 20 | 38 | 65.52 | 0 | 1 |
+| interval_propagation_demo | conditional_branches | 0 | 0 | 0 | n/a | 0 | 0 |
+| interval_propagation_demo | instructions | 14 | 14 | 0 | 0.00 | 0 | 0 |
+| interval_propagation_demo | basic_blocks | 4 | 4 | 0 | 0.00 | 0 | 0 |
+| interval_propagation_demo | text_bytes | 115 | 115 | 0 | 0.00 | 0 | 0 |
+| live_threshold | conditional_branches | 1 | 1 | 0 | 0.00 | 0 | 0 |
+| live_threshold | instructions | 7 | 7 | 0 | 0.00 | 0 | 0 |
+| live_threshold | basic_blocks | 3 | 3 | 0 | 0.00 | 0 | 0 |
+| live_threshold | text_bytes | 58 | 58 | 0 | 0.00 | 0 | 0 |
+| looping_greenhouse_supervisor | conditional_branches | 27 | 5 | 22 | 81.48 | 0 | 22 |
+| looping_greenhouse_supervisor | instructions | 179 | 41 | 138 | 77.09 | 0 | 22 |
+| looping_greenhouse_supervisor | basic_blocks | 60 | 16 | 44 | 73.33 | 0 | 22 |
+| looping_greenhouse_supervisor | text_bytes | 1512 | 319 | 1193 | 78.90 | 0 | 22 |
+| phi_merge | conditional_branches | 1 | 1 | 0 | 0.00 | 0 | 0 |
+| phi_merge | instructions | 8 | 8 | 0 | 0.00 | 0 | 0 |
+| phi_merge | basic_blocks | 4 | 4 | 0 | 0.00 | 0 | 0 |
+| phi_merge | text_bytes | 61 | 61 | 0 | 0.00 | 0 | 0 |
+| realistic_esp32_style | conditional_branches | 10 | 4 | 6 | 60.00 | 0 | 6 |
+| realistic_esp32_style | instructions | 60 | 34 | 26 | 43.33 | 0 | 6 |
+| realistic_esp32_style | basic_blocks | 26 | 13 | 13 | 50.00 | 0 | 6 |
+| realistic_esp32_style | text_bytes | 443 | 253 | 190 | 42.89 | 0 | 6 |
+| redundant_validation | conditional_branches | 1 | 0 | 1 | 100.00 | 2 | 0 |
+| redundant_validation | instructions | 9 | 2 | 7 | 77.78 | 2 | 0 |
+| redundant_validation | basic_blocks | 3 | 1 | 2 | 66.67 | 2 | 0 |
+| redundant_validation | text_bytes | 70 | 20 | 50 | 71.43 | 2 | 0 |
+| sensor_seed_demo | conditional_branches | 0 | 0 | 0 | n/a | 0 | 0 |
+| sensor_seed_demo | instructions | 2 | 2 | 0 | 0.00 | 0 | 0 |
+| sensor_seed_demo | basic_blocks | 1 | 1 | 0 | 0.00 | 0 | 0 |
+| sensor_seed_demo | text_bytes | 18 | 18 | 0 | 0.00 | 0 | 0 |
+| unknown_input_and_overflow | conditional_branches | 2 | 2 | 0 | 0.00 | 0 | 0 |
+| unknown_input_and_overflow | instructions | 16 | 16 | 0 | 0.00 | 0 | 0 |
+| unknown_input_and_overflow | basic_blocks | 6 | 6 | 0 | 0.00 | 0 | 0 |
+| unknown_input_and_overflow | text_bytes | 144 | 144 | 0 | 0.00 | 0 | 0 |
+| unknown_sensor | conditional_branches | 1 | 1 | 0 | 0.00 | 0 | 0 |
+| unknown_sensor | instructions | 7 | 7 | 0 | 0.00 | 0 | 0 |
+| unknown_sensor | basic_blocks | 3 | 3 | 0 | 0.00 | 0 | 0 |
+| unknown_sensor | text_bytes | 58 | 58 | 0 | 0.00 | 0 | 0 |

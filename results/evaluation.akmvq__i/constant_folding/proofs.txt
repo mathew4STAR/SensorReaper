@@ -1,0 +1,5 @@
+sensor-range-elim: seeded humidity_sensor as [0, 100] in folded_sensor_expression
+sensor-range-elim: reads seeded in folded_sensor_expression: 1
+sensor-range-elim: inferred [0, 0] in folded_sensor_expression
+sensor-range-elim: folded interval [0, 0] to a constant in folded_sensor_expression
+sensor-range-elim: summary for folded_sensor_expression: reads seeded=1, constants folded=1, comparisons proven true=0, comparisons proven false=0

@@ -1,0 +1,216 @@
+TranslationUnitDecl 0x6477cdc0a208 <<invalid sloc>> <invalid sloc>
+|-TypedefDecl 0x6477cdc0aa38 <<invalid sloc>> <invalid sloc> implicit __int128_t '__int128'
+| `-BuiltinType 0x6477cdc0a7d0 '__int128'
+|-TypedefDecl 0x6477cdc0aaa8 <<invalid sloc>> <invalid sloc> implicit __uint128_t 'unsigned __int128'
+| `-BuiltinType 0x6477cdc0a7f0 'unsigned __int128'
+|-TypedefDecl 0x6477cdc0adb0 <<invalid sloc>> <invalid sloc> implicit __NSConstantString 'struct __NSConstantString_tag'
+| `-RecordType 0x6477cdc0ab80 'struct __NSConstantString_tag'
+|   `-Record 0x6477cdc0ab00 '__NSConstantString_tag'
+|-TypedefDecl 0x6477cdc0ae58 <<invalid sloc>> <invalid sloc> implicit __builtin_ms_va_list 'char *'
+| `-PointerType 0x6477cdc0ae10 'char *'
+|   `-BuiltinType 0x6477cdc0a2b0 'char'
+|-TypedefDecl 0x6477cdc0b150 <<invalid sloc>> <invalid sloc> implicit __builtin_va_list 'struct __va_list_tag[1]'
+| `-ConstantArrayType 0x6477cdc0b0f0 'struct __va_list_tag[1]' 1 
+|   `-RecordType 0x6477cdc0af30 'struct __va_list_tag'
+|     `-Record 0x6477cdc0aeb0 '__va_list_tag'
+|-FunctionDecl 0x6477cdc6ad58 </home/mathew/Documents/ChatGPT/SensorProject/sensor-range-opt/tests/c/realistic_esp32_style.c:2:1, col:33> col:5 used sensor_read 'int (const char *)'
+| `-ParmVarDecl 0x6477cdc6ac80 <col:17, col:29> col:29 name 'const char *'
+|-FunctionDecl 0x6477cdc6af20 <line:3:1, col:14> col:6 used err 'void (void)'
+|-FunctionDecl 0x6477cdc6b060 <line:4:1, col:16> col:6 used alarm 'void (void)'
+|-FunctionDecl 0x6477cdc6b1a0 <line:5:1, col:17> col:6 used fan_on 'void (void)'
+|-FunctionDecl 0x6477cdc6b2e0 <line:6:1, col:18> col:6 used fan_off 'void (void)'
+|-FunctionDecl 0x6477cdc6b420 <line:7:1, col:26> col:6 used dehumidifier_on 'void (void)'
+|-FunctionDecl 0x6477cdc6b560 <line:8:1, col:27> col:6 used dehumidifier_off 'void (void)'
+|-FunctionDecl 0x6477cdc6b6a0 <line:9:1, col:18> col:6 used vent_on 'void (void)'
+|-FunctionDecl 0x6477cdc6b7e0 <line:10:1, col:19> col:6 used vent_off 'void (void)'
+|-FunctionDecl 0x6477cdc6b920 <line:11:1, col:21> col:6 used dim_lights 'void (void)'
+|-FunctionDecl 0x6477cdc6ba60 <line:12:1, col:26> col:6 used brighten_lights 'void (void)'
+|-FunctionDecl 0x6477cdc6bea0 <line:13:1, line:14:49> line:13:6 used publish_environment 'void (int, int, int, int, int)'
+| |-ParmVarDecl 0x6477cdc6bb20 <col:26, col:30> col:30 temperature 'int'
+| |-ParmVarDecl 0x6477cdc6bba0 <col:43, col:47> col:47 humidity 'int'
+| |-ParmVarDecl 0x6477cdc6bc90 <col:57, col:61> col:61 pressure 'int'
+| |-ParmVarDecl 0x6477cdc6bd10 <line:14:26, col:30> col:30 distance 'int'
+| `-ParmVarDecl 0x6477cdc6bd90 <col:40, col:44> col:44 light 'int'
+`-FunctionDecl 0x6477cdc6c058 <line:17:1, line:80:1> line:17:5 run_environment_controller 'int (int)'
+  |-ParmVarDecl 0x6477cdc6bf88 <col:32, col:36> col:36 used manual_fan_request 'int'
+  `-CompoundStmt 0x6477cdc6d958 <col:56, line:80:1>
+    |-DeclStmt 0x6477cdc6c2c0 <line:19:3, col:47>
+    | `-VarDecl 0x6477cdc6c120 <col:3, col:46> col:7 used temperature 'int' cinit
+    |   `-CallExpr 0x6477cdc6c268 <col:21, col:46> 'int'
+    |     |-ImplicitCastExpr 0x6477cdc6c250 <col:21> 'int (*)(const char *)' <FunctionToPointerDecay>
+    |     | `-DeclRefExpr 0x6477cdc6c188 <col:21> 'int (const char *)' Function 0x6477cdc6ad58 'sensor_read' 'int (const char *)'
+    |     `-ImplicitCastExpr 0x6477cdc6c2a8 <col:33> 'const char *' <NoOp>
+    |       `-ImplicitCastExpr 0x6477cdc6c290 <col:33> 'char *' <ArrayToPointerDecay>
+    |         `-StringLiteral 0x6477cdc6c1f0 <col:33> 'char[12]' lvalue "temp_sensor"
+    |-DeclStmt 0x6477cdc6c458 <line:20:3, col:48>
+    | `-VarDecl 0x6477cdc6c2f0 <col:3, col:47> col:7 used humidity 'int' cinit
+    |   `-CallExpr 0x6477cdc6c400 <col:18, col:47> 'int'
+    |     |-ImplicitCastExpr 0x6477cdc6c3e8 <col:18> 'int (*)(const char *)' <FunctionToPointerDecay>
+    |     | `-DeclRefExpr 0x6477cdc6c358 <col:18> 'int (const char *)' Function 0x6477cdc6ad58 'sensor_read' 'int (const char *)'
+    |     `-ImplicitCastExpr 0x6477cdc6c440 <col:30> 'const char *' <NoOp>
+    |       `-ImplicitCastExpr 0x6477cdc6c428 <col:30> 'char *' <ArrayToPointerDecay>
+    |         `-StringLiteral 0x6477cdc6c3c0 <col:30> 'char[16]' lvalue "humidity_sensor"
+    |-DeclStmt 0x6477cdc6c5a8 <line:21:3, col:48>
+    | `-VarDecl 0x6477cdc6c488 <col:3, col:47> col:7 used pressure 'int' cinit
+    |   `-CallExpr 0x6477cdc6c550 <col:18, col:47> 'int'
+    |     |-ImplicitCastExpr 0x6477cdc6c538 <col:18> 'int (*)(const char *)' <FunctionToPointerDecay>
+    |     | `-DeclRefExpr 0x6477cdc6c4f0 <col:18> 'int (const char *)' Function 0x6477cdc6ad58 'sensor_read' 'int (const char *)'
+    |     `-ImplicitCastExpr 0x6477cdc6c590 <col:30> 'const char *' <NoOp>
+    |       `-ImplicitCastExpr 0x6477cdc6c578 <col:30> 'char *' <ArrayToPointerDecay>
+    |         `-StringLiteral 0x6477cdc6c510 <col:30> 'char[16]' lvalue "pressure_sensor"
+    |-DeclStmt 0x6477cdc6c6f8 <line:22:3, col:48>
+    | `-VarDecl 0x6477cdc6c5d8 <col:3, col:47> col:7 used distance 'int' cinit
+    |   `-CallExpr 0x6477cdc6c6a0 <col:18, col:47> 'int'
+    |     |-ImplicitCastExpr 0x6477cdc6c688 <col:18> 'int (*)(const char *)' <FunctionToPointerDecay>
+    |     | `-DeclRefExpr 0x6477cdc6c640 <col:18> 'int (const char *)' Function 0x6477cdc6ad58 'sensor_read' 'int (const char *)'
+    |     `-ImplicitCastExpr 0x6477cdc6c6e0 <col:30> 'const char *' <NoOp>
+    |       `-ImplicitCastExpr 0x6477cdc6c6c8 <col:30> 'char *' <ArrayToPointerDecay>
+    |         `-StringLiteral 0x6477cdc6c660 <col:30> 'char[16]' lvalue "distance_sensor"
+    |-DeclStmt 0x6477cdc6c888 <line:23:3, col:42>
+    | `-VarDecl 0x6477cdc6c728 <col:3, col:41> col:7 used light 'int' cinit
+    |   `-CallExpr 0x6477cdc6c830 <col:15, col:41> 'int'
+    |     |-ImplicitCastExpr 0x6477cdc6c818 <col:15> 'int (*)(const char *)' <FunctionToPointerDecay>
+    |     | `-DeclRefExpr 0x6477cdc6c790 <col:15> 'int (const char *)' Function 0x6477cdc6ad58 'sensor_read' 'int (const char *)'
+    |     `-ImplicitCastExpr 0x6477cdc6c870 <col:27> 'const char *' <NoOp>
+    |       `-ImplicitCastExpr 0x6477cdc6c858 <col:27> 'char *' <ArrayToPointerDecay>
+    |         `-StringLiteral 0x6477cdc6c7f0 <col:27> 'char[13]' lvalue "light_sensor"
+    |-IfStmt 0x6477cdc6ca20 <line:26:3, line:29:3>
+    | |-BinaryOperator 0x6477cdc6c910 <line:26:7, col:22> 'int' '<'
+    | | |-ImplicitCastExpr 0x6477cdc6c8f8 <col:7> 'int' <LValueToRValue>
+    | | | `-DeclRefExpr 0x6477cdc6c8a0 <col:7> 'int' lvalue Var 0x6477cdc6c120 'temperature' 'int'
+    | | `-UnaryOperator 0x6477cdc6c8e0 <col:21, col:22> 'int' prefix '-'
+    | |   `-IntegerLiteral 0x6477cdc6c8c0 <col:22> 'int' 100
+    | `-CompoundStmt 0x6477cdc6ca00 <col:27, line:29:3>
+    |   |-CallExpr 0x6477cdc6c998 <line:27:5, col:9> 'void'
+    |   | `-ImplicitCastExpr 0x6477cdc6c980 <col:5> 'void (*)(void)' <FunctionToPointerDecay>
+    |   |   `-DeclRefExpr 0x6477cdc6c930 <col:5> 'void (void)' Function 0x6477cdc6af20 'err' 'void (void)'
+    |   `-ReturnStmt 0x6477cdc6c9f0 <line:28:5, col:13>
+    |     `-UnaryOperator 0x6477cdc6c9d8 <col:12, col:13> 'int' prefix '-'
+    |       `-IntegerLiteral 0x6477cdc6c9b8 <col:13> 'int' 1
+    |-IfStmt 0x6477cdc6cb78 <line:30:3, line:33:3>
+    | |-BinaryOperator 0x6477cdc6ca98 <line:30:7, col:21> 'int' '>'
+    | | |-ImplicitCastExpr 0x6477cdc6ca80 <col:7> 'int' <LValueToRValue>
+    | | | `-DeclRefExpr 0x6477cdc6ca40 <col:7> 'int' lvalue Var 0x6477cdc6c120 'temperature' 'int'
+    | | `-IntegerLiteral 0x6477cdc6ca60 <col:21> 'int' 200
+    | `-CompoundStmt 0x6477cdc6cb58 <col:26, line:33:3>
+    |   |-CallExpr 0x6477cdc6caf0 <line:31:5, col:9> 'void'
+    |   | `-ImplicitCastExpr 0x6477cdc6cad8 <col:5> 'void (*)(void)' <FunctionToPointerDecay>
+    |   |   `-DeclRefExpr 0x6477cdc6cab8 <col:5> 'void (void)' Function 0x6477cdc6af20 'err' 'void (void)'
+    |   `-ReturnStmt 0x6477cdc6cb48 <line:32:5, col:13>
+    |     `-UnaryOperator 0x6477cdc6cb30 <col:12, col:13> 'int' prefix '-'
+    |       `-IntegerLiteral 0x6477cdc6cb10 <col:13> 'int' 2
+    |-IfStmt 0x6477cdc6cce8 <line:34:3, line:37:3>
+    | |-BinaryOperator 0x6477cdc6cbf0 <line:34:7, col:18> 'int' '>'
+    | | |-ImplicitCastExpr 0x6477cdc6cbd8 <col:7> 'int' <LValueToRValue>
+    | | | `-DeclRefExpr 0x6477cdc6cb98 <col:7> 'int' lvalue Var 0x6477cdc6c2f0 'humidity' 'int'
+    | | `-IntegerLiteral 0x6477cdc6cbb8 <col:18> 'int' 120
+    | `-CompoundStmt 0x6477cdc6ccc8 <col:23, line:37:3>
+    |   |-CallExpr 0x6477cdc6cc48 <line:35:5, col:9> 'void'
+    |   | `-ImplicitCastExpr 0x6477cdc6cc30 <col:5> 'void (*)(void)' <FunctionToPointerDecay>
+    |   |   `-DeclRefExpr 0x6477cdc6cc10 <col:5> 'void (void)' Function 0x6477cdc6af20 'err' 'void (void)'
+    |   `-ReturnStmt 0x6477cdc6ccb8 <line:36:5, col:13>
+    |     `-UnaryOperator 0x6477cdc6cca0 <col:12, col:13> 'int' prefix '-'
+    |       `-IntegerLiteral 0x6477cdc6cc68 <col:13> 'int' 3
+    |-IfStmt 0x6477cdc6ce40 <line:38:3, line:41:3>
+    | |-BinaryOperator 0x6477cdc6cd60 <line:38:7, col:18> 'int' '<'
+    | | |-ImplicitCastExpr 0x6477cdc6cd48 <col:7> 'int' <LValueToRValue>
+    | | | `-DeclRefExpr 0x6477cdc6cd08 <col:7> 'int' lvalue Var 0x6477cdc6c488 'pressure' 'int'
+    | | `-IntegerLiteral 0x6477cdc6cd28 <col:18> 'int' 250
+    | `-CompoundStmt 0x6477cdc6ce20 <col:23, line:41:3>
+    |   |-CallExpr 0x6477cdc6cdb8 <line:39:5, col:9> 'void'
+    |   | `-ImplicitCastExpr 0x6477cdc6cda0 <col:5> 'void (*)(void)' <FunctionToPointerDecay>
+    |   |   `-DeclRefExpr 0x6477cdc6cd80 <col:5> 'void (void)' Function 0x6477cdc6af20 'err' 'void (void)'
+    |   `-ReturnStmt 0x6477cdc6ce10 <line:40:5, col:13>
+    |     `-UnaryOperator 0x6477cdc6cdf8 <col:12, col:13> 'int' prefix '-'
+    |       `-IntegerLiteral 0x6477cdc6cdd8 <col:13> 'int' 4
+    |-IfStmt 0x6477cdc6cf98 <line:42:3, line:45:3>
+    | |-BinaryOperator 0x6477cdc6ceb8 <line:42:7, col:18> 'int' '<'
+    | | |-ImplicitCastExpr 0x6477cdc6cea0 <col:7> 'int' <LValueToRValue>
+    | | | `-DeclRefExpr 0x6477cdc6ce60 <col:7> 'int' lvalue Var 0x6477cdc6c5d8 'distance' 'int'
+    | | `-IntegerLiteral 0x6477cdc6ce80 <col:18> 'int' 1
+    | `-CompoundStmt 0x6477cdc6cf78 <col:21, line:45:3>
+    |   |-CallExpr 0x6477cdc6cf10 <line:43:5, col:9> 'void'
+    |   | `-ImplicitCastExpr 0x6477cdc6cef8 <col:5> 'void (*)(void)' <FunctionToPointerDecay>
+    |   |   `-DeclRefExpr 0x6477cdc6ced8 <col:5> 'void (void)' Function 0x6477cdc6af20 'err' 'void (void)'
+    |   `-ReturnStmt 0x6477cdc6cf68 <line:44:5, col:13>
+    |     `-UnaryOperator 0x6477cdc6cf50 <col:12, col:13> 'int' prefix '-'
+    |       `-IntegerLiteral 0x6477cdc6cf30 <col:13> 'int' 5
+    |-IfStmt 0x6477cdc6d0f0 <line:46:3, line:49:3>
+    | |-BinaryOperator 0x6477cdc6d010 <line:46:7, col:16> 'int' '=='
+    | | |-ImplicitCastExpr 0x6477cdc6cff8 <col:7> 'int' <LValueToRValue>
+    | | | `-DeclRefExpr 0x6477cdc6cfb8 <col:7> 'int' lvalue Var 0x6477cdc6c728 'light' 'int'
+    | | `-IntegerLiteral 0x6477cdc6cfd8 <col:16> 'int' 0
+    | `-CompoundStmt 0x6477cdc6d0d0 <col:19, line:49:3>
+    |   |-CallExpr 0x6477cdc6d068 <line:47:5, col:9> 'void'
+    |   | `-ImplicitCastExpr 0x6477cdc6d050 <col:5> 'void (*)(void)' <FunctionToPointerDecay>
+    |   |   `-DeclRefExpr 0x6477cdc6d030 <col:5> 'void (void)' Function 0x6477cdc6af20 'err' 'void (void)'
+    |   `-ReturnStmt 0x6477cdc6d0c0 <line:48:5, col:13>
+    |     `-UnaryOperator 0x6477cdc6d0a8 <col:12, col:13> 'int' prefix '-'
+    |       `-IntegerLiteral 0x6477cdc6d088 <col:13> 'int' 6
+    |-IfStmt 0x6477cdc6d320 <line:52:3, line:57:3> has_else
+    | |-BinaryOperator 0x6477cdc6d1c0 <line:52:7, col:27> 'int' '||'
+    | | |-BinaryOperator 0x6477cdc6d168 <col:7, col:21> 'int' '>'
+    | | | |-ImplicitCastExpr 0x6477cdc6d150 <col:7> 'int' <LValueToRValue>
+    | | | | `-DeclRefExpr 0x6477cdc6d110 <col:7> 'int' lvalue Var 0x6477cdc6c120 'temperature' 'int'
+    | | | `-IntegerLiteral 0x6477cdc6d130 <col:21> 'int' 50
+    | | `-ImplicitCastExpr 0x6477cdc6d1a8 <col:27> 'int' <LValueToRValue>
+    | |   `-DeclRefExpr 0x6477cdc6d188 <col:27> 'int' lvalue ParmVar 0x6477cdc6bf88 'manual_fan_request' 'int'
+    | |-CompoundStmt 0x6477cdc6d290 <col:47, line:55:3>
+    | | |-CallExpr 0x6477cdc6d218 <line:53:5, col:12> 'void'
+    | | | `-ImplicitCastExpr 0x6477cdc6d200 <col:5> 'void (*)(void)' <FunctionToPointerDecay>
+    | | |   `-DeclRefExpr 0x6477cdc6d1e0 <col:5> 'void (void)' Function 0x6477cdc6b1a0 'fan_on' 'void (void)'
+    | | `-CallExpr 0x6477cdc6d270 <line:54:5, col:11> 'void'
+    | |   `-ImplicitCastExpr 0x6477cdc6d258 <col:5> 'void (*)(void)' <FunctionToPointerDecay>
+    | |     `-DeclRefExpr 0x6477cdc6d238 <col:5> 'void (void)' Function 0x6477cdc6b060 'alarm' 'void (void)'
+    | `-CompoundStmt 0x6477cdc6d308 <line:55:10, line:57:3>
+    |   `-CallExpr 0x6477cdc6d2e8 <line:56:5, col:13> 'void'
+    |     `-ImplicitCastExpr 0x6477cdc6d2d0 <col:5> 'void (*)(void)' <FunctionToPointerDecay>
+    |       `-DeclRefExpr 0x6477cdc6d2b0 <col:5> 'void (void)' Function 0x6477cdc6b2e0 'fan_off' 'void (void)'
+    |-IfStmt 0x6477cdc6d478 <line:60:3, line:63:22> has_else
+    | |-BinaryOperator 0x6477cdc6d3a8 <line:60:7, col:19> 'int' '>='
+    | | |-ImplicitCastExpr 0x6477cdc6d390 <col:7> 'int' <LValueToRValue>
+    | | | `-DeclRefExpr 0x6477cdc6d350 <col:7> 'int' lvalue Var 0x6477cdc6c2f0 'humidity' 'int'
+    | | `-IntegerLiteral 0x6477cdc6d370 <col:19> 'int' 75
+    | |-CallExpr 0x6477cdc6d400 <line:61:5, col:21> 'void'
+    | | `-ImplicitCastExpr 0x6477cdc6d3e8 <col:5> 'void (*)(void)' <FunctionToPointerDecay>
+    | |   `-DeclRefExpr 0x6477cdc6d3c8 <col:5> 'void (void)' Function 0x6477cdc6b420 'dehumidifier_on' 'void (void)'
+    | `-CallExpr 0x6477cdc6d458 <line:63:5, col:22> 'void'
+    |   `-ImplicitCastExpr 0x6477cdc6d440 <col:5> 'void (*)(void)' <FunctionToPointerDecay>
+    |     `-DeclRefExpr 0x6477cdc6d420 <col:5> 'void (void)' Function 0x6477cdc6b560 'dehumidifier_off' 'void (void)'
+    |-IfStmt 0x6477cdc6d5d0 <line:66:3, line:69:14> has_else
+    | |-BinaryOperator 0x6477cdc6d500 <line:66:7, col:18> 'int' '<'
+    | | |-ImplicitCastExpr 0x6477cdc6d4e8 <col:7> 'int' <LValueToRValue>
+    | | | `-DeclRefExpr 0x6477cdc6d4a8 <col:7> 'int' lvalue Var 0x6477cdc6c488 'pressure' 'int'
+    | | `-IntegerLiteral 0x6477cdc6d4c8 <col:18> 'int' 900
+    | |-CallExpr 0x6477cdc6d558 <line:67:5, col:13> 'void'
+    | | `-ImplicitCastExpr 0x6477cdc6d540 <col:5> 'void (*)(void)' <FunctionToPointerDecay>
+    | |   `-DeclRefExpr 0x6477cdc6d520 <col:5> 'void (void)' Function 0x6477cdc6b6a0 'vent_on' 'void (void)'
+    | `-CallExpr 0x6477cdc6d5b0 <line:69:5, col:14> 'void'
+    |   `-ImplicitCastExpr 0x6477cdc6d598 <col:5> 'void (*)(void)' <FunctionToPointerDecay>
+    |     `-DeclRefExpr 0x6477cdc6d578 <col:5> 'void (void)' Function 0x6477cdc6b7e0 'vent_off' 'void (void)'
+    |-IfStmt 0x6477cdc6d728 <line:72:3, line:75:16> has_else
+    | |-BinaryOperator 0x6477cdc6d658 <line:72:7, col:15> 'int' '<'
+    | | |-ImplicitCastExpr 0x6477cdc6d640 <col:7> 'int' <LValueToRValue>
+    | | | `-DeclRefExpr 0x6477cdc6d600 <col:7> 'int' lvalue Var 0x6477cdc6c728 'light' 'int'
+    | | `-IntegerLiteral 0x6477cdc6d620 <col:15> 'int' 100
+    | |-CallExpr 0x6477cdc6d6b0 <line:73:5, col:21> 'void'
+    | | `-ImplicitCastExpr 0x6477cdc6d698 <col:5> 'void (*)(void)' <FunctionToPointerDecay>
+    | |   `-DeclRefExpr 0x6477cdc6d678 <col:5> 'void (void)' Function 0x6477cdc6ba60 'brighten_lights' 'void (void)'
+    | `-CallExpr 0x6477cdc6d708 <line:75:5, col:16> 'void'
+    |   `-ImplicitCastExpr 0x6477cdc6d6f0 <col:5> 'void (*)(void)' <FunctionToPointerDecay>
+    |     `-DeclRefExpr 0x6477cdc6d6d0 <col:5> 'void (void)' Function 0x6477cdc6b920 'dim_lights' 'void (void)'
+    |-CallExpr 0x6477cdc6d868 <line:78:3, col:71> 'void'
+    | |-ImplicitCastExpr 0x6477cdc6d850 <col:3> 'void (*)(int, int, int, int, int)' <FunctionToPointerDecay>
+    | | `-DeclRefExpr 0x6477cdc6d758 <col:3> 'void (int, int, int, int, int)' Function 0x6477cdc6bea0 'publish_environment' 'void (int, int, int, int, int)'
+    | |-ImplicitCastExpr 0x6477cdc6d8b0 <col:23> 'int' <LValueToRValue>
+    | | `-DeclRefExpr 0x6477cdc6d778 <col:23> 'int' lvalue Var 0x6477cdc6c120 'temperature' 'int'
+    | |-ImplicitCastExpr 0x6477cdc6d8c8 <col:36> 'int' <LValueToRValue>
+    | | `-DeclRefExpr 0x6477cdc6d798 <col:36> 'int' lvalue Var 0x6477cdc6c2f0 'humidity' 'int'
+    | |-ImplicitCastExpr 0x6477cdc6d8e0 <col:46> 'int' <LValueToRValue>
+    | | `-DeclRefExpr 0x6477cdc6d7b8 <col:46> 'int' lvalue Var 0x6477cdc6c488 'pressure' 'int'
+    | |-ImplicitCastExpr 0x6477cdc6d8f8 <col:56> 'int' <LValueToRValue>
+    | | `-DeclRefExpr 0x6477cdc6d7d8 <col:56> 'int' lvalue Var 0x6477cdc6c5d8 'distance' 'int'
+    | `-ImplicitCastExpr 0x6477cdc6d910 <col:66> 'int' <LValueToRValue>
+    |   `-DeclRefExpr 0x6477cdc6d7f8 <col:66> 'int' lvalue Var 0x6477cdc6c728 'light' 'int'
+    `-ReturnStmt 0x6477cdc6d948 <line:79:3, col:10>
+      `-IntegerLiteral 0x6477cdc6d928 <col:10> 'int' 0

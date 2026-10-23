@@ -1,0 +1,41 @@
+TranslationUnitDecl 0x637c912881a8 <<invalid sloc>> <invalid sloc>
+|-TypedefDecl 0x637c912889d8 <<invalid sloc>> <invalid sloc> implicit __int128_t '__int128'
+| `-BuiltinType 0x637c91288770 '__int128'
+|-TypedefDecl 0x637c91288a48 <<invalid sloc>> <invalid sloc> implicit __uint128_t 'unsigned __int128'
+| `-BuiltinType 0x637c91288790 'unsigned __int128'
+|-TypedefDecl 0x637c91288d50 <<invalid sloc>> <invalid sloc> implicit __NSConstantString 'struct __NSConstantString_tag'
+| `-RecordType 0x637c91288b20 'struct __NSConstantString_tag'
+|   `-Record 0x637c91288aa0 '__NSConstantString_tag'
+|-TypedefDecl 0x637c91288df8 <<invalid sloc>> <invalid sloc> implicit __builtin_ms_va_list 'char *'
+| `-PointerType 0x637c91288db0 'char *'
+|   `-BuiltinType 0x637c91288250 'char'
+|-TypedefDecl 0x637c912890f0 <<invalid sloc>> <invalid sloc> implicit __builtin_va_list 'struct __va_list_tag[1]'
+| `-ConstantArrayType 0x637c91289090 'struct __va_list_tag[1]' 1 
+|   `-RecordType 0x637c91288ed0 'struct __va_list_tag'
+|     `-Record 0x637c91288e50 '__va_list_tag'
+|-FunctionDecl 0x637c912e85f8 </home/mathew/Documents/ChatGPT/SensorProject/sensor-range-opt/tests/c/dead_high_bound.c:2:1, col:33> col:5 used sensor_read 'int (const char *)'
+| `-ParmVarDecl 0x637c912e8520 <col:17, col:29> col:29 name 'const char *'
+|-FunctionDecl 0x637c912e87c0 <line:3:1, col:14> col:6 used err 'void (void)'
+`-FunctionDecl 0x637c912e8938 <line:6:1, line:13:1> line:6:5 dead_high_bound 'int (void)'
+  `-CompoundStmt 0x637c912e8d48 <col:27, line:13:1>
+    |-DeclStmt 0x637c912e8b90 <line:7:3, col:47>
+    | `-VarDecl 0x637c912e89f8 <col:3, col:46> col:7 used temperature 'int' cinit
+    |   `-CallExpr 0x637c912e8b38 <col:21, col:46> 'int'
+    |     |-ImplicitCastExpr 0x637c912e8b20 <col:21> 'int (*)(const char *)' <FunctionToPointerDecay>
+    |     | `-DeclRefExpr 0x637c912e8a60 <col:21> 'int (const char *)' Function 0x637c912e85f8 'sensor_read' 'int (const char *)'
+    |     `-ImplicitCastExpr 0x637c912e8b78 <col:33> 'const char *' <NoOp>
+    |       `-ImplicitCastExpr 0x637c912e8b60 <col:33> 'char *' <ArrayToPointerDecay>
+    |         `-StringLiteral 0x637c912e8ac0 <col:33> 'char[12]' lvalue "temp_sensor"
+    |-IfStmt 0x637c912e8cf8 <line:8:3, line:11:3>
+    | |-BinaryOperator 0x637c912e8c00 <line:8:7, col:21> 'int' '>'
+    | | |-ImplicitCastExpr 0x637c912e8be8 <col:7> 'int' <LValueToRValue>
+    | | | `-DeclRefExpr 0x637c912e8ba8 <col:7> 'int' lvalue Var 0x637c912e89f8 'temperature' 'int'
+    | | `-IntegerLiteral 0x637c912e8bc8 <col:21> 'int' 200
+    | `-CompoundStmt 0x637c912e8cd8 <col:26, line:11:3>
+    |   |-CallExpr 0x637c912e8c88 <line:9:5, col:9> 'void'
+    |   | `-ImplicitCastExpr 0x637c912e8c70 <col:5> 'void (*)(void)' <FunctionToPointerDecay>
+    |   |   `-DeclRefExpr 0x637c912e8c20 <col:5> 'void (void)' Function 0x637c912e87c0 'err' 'void (void)'
+    |   `-ReturnStmt 0x637c912e8cc8 <line:10:5, col:12>
+    |     `-IntegerLiteral 0x637c912e8ca8 <col:12> 'int' 1
+    `-ReturnStmt 0x637c912e8d38 <line:12:3, col:10>
+      `-IntegerLiteral 0x637c912e8d18 <col:10> 'int' 0

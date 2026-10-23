@@ -1,0 +1,41 @@
+TranslationUnitDecl 0x5b6a7e96b358 <<invalid sloc>> <invalid sloc>
+|-TypedefDecl 0x5b6a7e96bb88 <<invalid sloc>> <invalid sloc> implicit __int128_t '__int128'
+| `-BuiltinType 0x5b6a7e96b920 '__int128'
+|-TypedefDecl 0x5b6a7e96bbf8 <<invalid sloc>> <invalid sloc> implicit __uint128_t 'unsigned __int128'
+| `-BuiltinType 0x5b6a7e96b940 'unsigned __int128'
+|-TypedefDecl 0x5b6a7e96bf00 <<invalid sloc>> <invalid sloc> implicit __NSConstantString 'struct __NSConstantString_tag'
+| `-RecordType 0x5b6a7e96bcd0 'struct __NSConstantString_tag'
+|   `-Record 0x5b6a7e96bc50 '__NSConstantString_tag'
+|-TypedefDecl 0x5b6a7e96bfa8 <<invalid sloc>> <invalid sloc> implicit __builtin_ms_va_list 'char *'
+| `-PointerType 0x5b6a7e96bf60 'char *'
+|   `-BuiltinType 0x5b6a7e96b400 'char'
+|-TypedefDecl 0x5b6a7e96c2a0 <<invalid sloc>> <invalid sloc> implicit __builtin_va_list 'struct __va_list_tag[1]'
+| `-ConstantArrayType 0x5b6a7e96c240 'struct __va_list_tag[1]' 1 
+|   `-RecordType 0x5b6a7e96c080 'struct __va_list_tag'
+|     `-Record 0x5b6a7e96c000 '__va_list_tag'
+|-FunctionDecl 0x5b6a7e9cb7a8 </home/mathew/Documents/ChatGPT/SensorProject/sensor-range-opt/tests/c/unknown_sensor.c:2:1, col:33> col:5 used sensor_read 'int (const char *)'
+| `-ParmVarDecl 0x5b6a7e9cb6d0 <col:17, col:29> col:29 name 'const char *'
+|-FunctionDecl 0x5b6a7e9cb970 <line:3:1, col:16> col:6 used alarm 'void (void)'
+`-FunctionDecl 0x5b6a7e9cbae8 <line:6:1, line:13:1> line:6:5 unknown_sensor 'int (void)'
+  `-CompoundStmt 0x5b6a7e9cbef8 <col:26, line:13:1>
+    |-DeclStmt 0x5b6a7e9cbd40 <line:7:3, col:47>
+    | `-VarDecl 0x5b6a7e9cbba8 <col:3, col:46> col:7 used reading 'int' cinit
+    |   `-CallExpr 0x5b6a7e9cbce8 <col:17, col:46> 'int'
+    |     |-ImplicitCastExpr 0x5b6a7e9cbcd0 <col:17> 'int (*)(const char *)' <FunctionToPointerDecay>
+    |     | `-DeclRefExpr 0x5b6a7e9cbc10 <col:17> 'int (const char *)' Function 0x5b6a7e9cb7a8 'sensor_read' 'int (const char *)'
+    |     `-ImplicitCastExpr 0x5b6a7e9cbd28 <col:29> 'const char *' <NoOp>
+    |       `-ImplicitCastExpr 0x5b6a7e9cbd10 <col:29> 'char *' <ArrayToPointerDecay>
+    |         `-StringLiteral 0x5b6a7e9cbc70 <col:29> 'char[16]' lvalue "unlisted_sensor"
+    |-IfStmt 0x5b6a7e9cbea8 <line:8:3, line:11:3>
+    | |-BinaryOperator 0x5b6a7e9cbdb0 <line:8:7, col:17> 'int' '>'
+    | | |-ImplicitCastExpr 0x5b6a7e9cbd98 <col:7> 'int' <LValueToRValue>
+    | | | `-DeclRefExpr 0x5b6a7e9cbd58 <col:7> 'int' lvalue Var 0x5b6a7e9cbba8 'reading' 'int'
+    | | `-IntegerLiteral 0x5b6a7e9cbd78 <col:17> 'int' 50
+    | `-CompoundStmt 0x5b6a7e9cbe88 <col:21, line:11:3>
+    |   |-CallExpr 0x5b6a7e9cbe38 <line:9:5, col:11> 'void'
+    |   | `-ImplicitCastExpr 0x5b6a7e9cbe20 <col:5> 'void (*)(void)' <FunctionToPointerDecay>
+    |   |   `-DeclRefExpr 0x5b6a7e9cbdd0 <col:5> 'void (void)' Function 0x5b6a7e9cb970 'alarm' 'void (void)'
+    |   `-ReturnStmt 0x5b6a7e9cbe78 <line:10:5, col:12>
+    |     `-IntegerLiteral 0x5b6a7e9cbe58 <col:12> 'int' 1
+    `-ReturnStmt 0x5b6a7e9cbee8 <line:12:3, col:10>
+      `-IntegerLiteral 0x5b6a7e9cbec8 <col:10> 'int' 0

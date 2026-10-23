@@ -1,0 +1,5 @@
+sensor-range-elim: seeded temp_sensor as [-40, 85] in dead_high_bound
+sensor-range-elim: reads seeded in dead_high_bound: 1
+sensor-range-elim: inferred [0, 1] in dead_high_bound
+sensor-range-elim: icmp sgt %1, 200 is always false: [-40, 85] versus [200, 200]
+sensor-range-elim: summary for dead_high_bound: reads seeded=1, constants folded=0, comparisons proven true=0, comparisons proven false=1

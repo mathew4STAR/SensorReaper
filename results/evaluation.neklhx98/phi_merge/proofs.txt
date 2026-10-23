@@ -1,0 +1,5 @@
+sensor-range-elim: seeded humidity_sensor as [0, 100] in select_environment_value
+sensor-range-elim: seeded temp_sensor as [-40, 85] in select_environment_value
+sensor-range-elim: reads seeded in select_environment_value: 2
+sensor-range-elim: inferred [-40, 100] in select_environment_value
+sensor-range-elim: summary for select_environment_value: reads seeded=2, constants folded=0, comparisons proven true=0, comparisons proven false=0

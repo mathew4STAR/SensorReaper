@@ -1,0 +1,35 @@
+sensor-range-elim: seeded temp_sensor as [-40, 85] in run_greenhouse_supervisor
+sensor-range-elim: seeded humidity_sensor as [0, 100] in run_greenhouse_supervisor
+sensor-range-elim: seeded pressure_sensor as [300, 1100] in run_greenhouse_supervisor
+sensor-range-elim: seeded distance_sensor as [2, 400] in run_greenhouse_supervisor
+sensor-range-elim: seeded light_sensor as [1, 65535] in run_greenhouse_supervisor
+sensor-range-elim: reads seeded in run_greenhouse_supervisor: 5
+sensor-range-elim: inferred [-80, 170] in run_greenhouse_supervisor
+sensor-range-elim: inferred [-50, 75] in run_greenhouse_supervisor
+sensor-range-elim: inferred [5, 105] in run_greenhouse_supervisor
+sensor-range-elim: inferred [250, 1050] in run_greenhouse_supervisor
+sensor-range-elim: inferred [4, 800] in run_greenhouse_supervisor
+sensor-range-elim: inferred [0, 65534] in run_greenhouse_supervisor
+sensor-range-elim: icmp slt %6, -100 is always false: [-40, 85] versus [-100, -100]
+sensor-range-elim: icmp sgt %6, 200 is always false: [-40, 85] versus [200, 200]
+sensor-range-elim: icmp slt %7, 0 is always false: [0, 100] versus [0, 0]
+sensor-range-elim: icmp sgt %7, 100 is always false: [0, 100] versus [100, 100]
+sensor-range-elim: icmp slt %8, 300 is always false: [300, 1100] versus [300, 300]
+sensor-range-elim: icmp sgt %8, 1100 is always false: [300, 1100] versus [1100, 1100]
+sensor-range-elim: icmp slt %9, 2 is always false: [2, 400] versus [2, 2]
+sensor-range-elim: icmp sgt %9, 400 is always false: [2, 400] versus [400, 400]
+sensor-range-elim: icmp slt %10, 1 is always false: [1, 65535] versus [1, 1]
+sensor-range-elim: icmp sgt %10, 65535 is always false: [1, 65535] versus [65535, 65535]
+sensor-range-elim: icmp sgt %51, 170 is always false: [-80, 170] versus [170, 170]
+sensor-range-elim: icmp slt %51, -80 is always false: [-80, 170] versus [-80, -80]
+sensor-range-elim: icmp sgt %52, 75 is always false: [-50, 75] versus [75, 75]
+sensor-range-elim: icmp slt %52, -50 is always false: [-50, 75] versus [-50, -50]
+sensor-range-elim: icmp sgt %53, 105 is always false: [5, 105] versus [105, 105]
+sensor-range-elim: icmp slt %53, 5 is always false: [5, 105] versus [5, 5]
+sensor-range-elim: icmp sgt %54, 1050 is always false: [250, 1050] versus [1050, 1050]
+sensor-range-elim: icmp slt %54, 250 is always false: [250, 1050] versus [250, 250]
+sensor-range-elim: icmp sgt %55, 800 is always false: [4, 800] versus [800, 800]
+sensor-range-elim: icmp slt %55, 4 is always false: [4, 800] versus [4, 4]
+sensor-range-elim: icmp sgt %56, 65534 is always false: [0, 65534] versus [65534, 65534]
+sensor-range-elim: icmp slt %56, 0 is always false: [0, 65534] versus [0, 0]
+sensor-range-elim: summary for run_greenhouse_supervisor: reads seeded=5, constants folded=0, comparisons proven true=0, comparisons proven false=22

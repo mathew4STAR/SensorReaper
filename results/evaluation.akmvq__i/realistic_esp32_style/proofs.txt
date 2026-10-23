@@ -1,0 +1,14 @@
+sensor-range-elim: seeded temp_sensor as [-40, 85] in run_environment_controller
+sensor-range-elim: seeded humidity_sensor as [0, 100] in run_environment_controller
+sensor-range-elim: seeded pressure_sensor as [300, 1100] in run_environment_controller
+sensor-range-elim: seeded distance_sensor as [2, 400] in run_environment_controller
+sensor-range-elim: seeded light_sensor as [1, 65535] in run_environment_controller
+sensor-range-elim: reads seeded in run_environment_controller: 5
+sensor-range-elim: inferred [-6, 0] in run_environment_controller
+sensor-range-elim: icmp slt %2, -100 is always false: [-40, 85] versus [-100, -100]
+sensor-range-elim: icmp sgt %2, 200 is always false: [-40, 85] versus [200, 200]
+sensor-range-elim: icmp sgt %3, 120 is always false: [0, 100] versus [120, 120]
+sensor-range-elim: icmp slt %4, 250 is always false: [300, 1100] versus [250, 250]
+sensor-range-elim: icmp slt %5, 1 is always false: [2, 400] versus [1, 1]
+sensor-range-elim: icmp eq %6, 0 is always false: [1, 65535] versus [0, 0]
+sensor-range-elim: summary for run_environment_controller: reads seeded=5, constants folded=0, comparisons proven true=0, comparisons proven false=6
